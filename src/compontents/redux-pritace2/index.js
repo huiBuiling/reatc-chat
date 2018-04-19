@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom';
 
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk'
-import { Provider } from 'react-redux'
 import App from './App';
 import { counter , addPro, delPro, addProAsync} from "./compontents/index.redux";
 
@@ -17,9 +16,12 @@ const store = createStore(counter,compose(
 function render() {
     // ReactDOM.render(<App store={store}/>, document.getElementById('root'));
     ReactDOM.render(
-        (<Provider store={store}>
-            <App />
-        </Provider>), document.getElementById('root'));
+            <App
+                store={store}
+                addPro={addPro}
+                delPro={delPro}
+                addProAsync={addProAsync}
+            />, document.getElementById('root'));
 }
 // registerServiceWorker();
 render();
