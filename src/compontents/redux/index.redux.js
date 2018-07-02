@@ -2,28 +2,28 @@ const ADD_PRO = '添加项目';
 const DEL_PRO = '删除项目';
 
 //reducer
-export function counter(state=0, action){
+export const counter = (state={ num: 10}, action)=>{
     switch (action.type){
         case ADD_PRO:
-            return state + 1;
+            return {num:state.num++};
         case DEL_PRO:
-            return state - 1;
+            return {num:state.num--};
         default:
-            return 10;
+            return state
     }
 }
 
 //action creater
 //添加
-export function addPro() {
+export const addPro = ()=>{
     return {type:ADD_PRO}
 }
 //删除
-export function delPro() {
+export const delPro = ()=>{
     return {type:DEL_PRO}
 }
 //异步添加
-export function addProAsync() {
+export const addProAsync =()=>{
     return dispatch=>{
         setTimeout(()=>{
             dispatch(addPro())

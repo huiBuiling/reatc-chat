@@ -1,28 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-// import registerServiceWorker from './registerServiceWorker';
-
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk'
 import { Provider } from 'react-redux'
-import App from './App';
-import { counter , addPro, delPro, addProAsync} from "./compontents/index.redux";
+import { BrowserRouter, Route ,Switch, Redirect} from 'react-router-dom'
 
-const store = createStore(counter,compose(
+import Auth from './compontents/auth/auth'
+import Dashboard from './compontents/dashboard'
+
+// import { counter } from "./compontents/index.redux"; //单个reducers
+import reducers from './compontents/redux/reducers'  //多个reducers
+
+const store = createStore(reducers,compose(
     applyMiddleware(thunk),
     window.devToolsExtension ? window.devToolsExtension():f=>f
 ))
+console.log(store)
 
-function render() {
-    // ReactDOM.render(<App store={store}/>, document.getElementById('root'));
-    ReactDOM.render(
-        (<Provider store={store}>
-            <App />
-        </Provider>), document.getElementById('root'));
-}
-// registerServiceWorker();
-render();
-
-//订阅
-store.subscribe(render)
+ReactDOM.render(
+    (<Provider store={store}>
+        <BrowserRouter>
+            <Switch>
+                <Route path='/login' exact component={Auth} ></Route>
+                <Route path='/dashboard'  component={Dashboard} ></Route>
+                <Redirect to='/dashboard'></Redirect>
+            </Switch>
+        </BrowserRouter>
+    </Provider>), document.getElementById('root'));

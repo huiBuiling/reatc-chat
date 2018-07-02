@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import { Button,WingBlank } from 'antd-mobile'
 // import Pritace from './compontents/pritace'
 // import Lifecycle from './compontents/lifecycle'
