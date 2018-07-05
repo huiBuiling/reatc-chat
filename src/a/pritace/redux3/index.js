@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import { BrowserRouter, Route, Link ,Switch, Redirect} from 'react-router-dom'
 
 import App from './App';
-import { counter } from "./compontents/index.redux";
+import { counter } from "./a/index.redux";
 
 const store = createStore(counter,compose(
     applyMiddleware(thunk),

@@ -5,9 +5,12 @@ const DEL_PRO = '删除项目';
 export const counter = (state={ num: 10}, action)=>{
     switch (action.type){
         case ADD_PRO:
-            return {num:state.num++};
+            state.num++;
+            // console.log(state.num + " : state")
+            return state;
         case DEL_PRO:
-            return {num:state.num--};
+            state.num--;
+            return state;
         default:
             return state
     }

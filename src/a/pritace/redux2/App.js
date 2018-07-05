@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Button,WingBlank } from 'antd-mobile'
-// import Pritace from './compontents/pritace'
-// import Lifecycle from './compontents/lifecycle'
+// import Pritace from './a/pritace'
+// import Lifecycle from './a/lifecycle'
 
-// import { addPro,delPro } from "./compontents/index.redux";
+// import { addPro,delPro } from "./a/index.redux";
 
 class App extends Component {
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button,WingBlank } from 'antd-mobile'
 import { connect } from 'react-redux'
-import { addPro, delPro, addProAsync} from './compontents/index.redux'
+import { addPro, delPro, addProAsync} from './a/index.redux'
 class App extends Component {
     render() {
         return (
