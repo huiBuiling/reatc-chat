@@ -4,12 +4,9 @@ const Router = express.Router();
 const model = require('./model')
 const User = model.getModel('user');
 
-
-
-/*
 Router.post('/register',function (req,res) {
-    console.log(res.body)
-    const {user, pwd, type} = res.body;
+    console.log(req.body)
+    const {user, pwd, type} = req.body;
     User.findOne({user},function (err, doc) {
         if(doc){
             return res.json({code:1,msg:'用户名重复'})
@@ -21,7 +18,8 @@ Router.post('/register',function (req,res) {
             return res.json({code:0})  //登录成功
         })
     })
-})*/
+})
+
 Router.get('/list',function (req,res) {
     User.find({},function (err, doc) {
         return res.json(doc);

@@ -16,7 +16,7 @@ const store = createStore(reducers,compose(
     applyMiddleware(thunk),
     window.devToolsExtension ? window.devToolsExtension():f=>f
 ))
-console.log(store)
+// console.log(store)
 
 ReactDOM.render(
     (<Provider store={store}>

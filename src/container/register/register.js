@@ -33,13 +33,12 @@ class Register extends Component{
 
     render (){
         const RadioItem = Radio.RadioItem;
-        console.log(this.props.msg)
         return (
             <div>
                 <Logo />
                 <h2 align="center">注册</h2>
                 <WingBlank>
-                    {this.props.msg ? <p className="err-msg">{this.props.msg}</p> : null}
+                    {/*{this.props.msg ? <p className="err-msg">{this.props.msg}</p> : null}*/}
                     <List>
                         <InputItem
                             onChange={v=>{this.handlerChange('user',v)}}
