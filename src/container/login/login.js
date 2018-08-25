@@ -12,7 +12,13 @@ class Login extends Component{
     }
 
     register = ()=>{
-        this.props.history.push('/register')
+        this.props.history.push('/register')  //注册
+    }
+
+    handlerChange = (key, val)=>{
+        this.setState({
+            [key]:val
+        });
     }
 
     render (){
@@ -21,11 +27,16 @@ class Login extends Component{
                 <Logo />
                 <h2 align="center">登录</h2>
                 <WingBlank>
-                   <List>
-                       <InputItem onChange={(v) => { console.log('onChange', v); }}>用户</InputItem>
-                       <WhiteSpace />
-                       <InputItem onChange={(v) => { console.log('onChange', v); }}>密码</InputItem>
-                   </List>
+                    <List>
+                        <InputItem
+                            onChange={v=>{this.handlerChange('user',v)}}
+                            onErrorClick={()=>{console.log('aaaaaaaaa')}}
+                            onExtraClick={()=>{console.log('aaaaaaaaa')}}
+                            onVirtualKeyboardConfirm={v => console.log('onVirtualKeyboardConfirm:', v)}
+                        >用户</InputItem>
+                        <WhiteSpace />
+                        {/*<InputItem onChange={v=>{this.handlerChange('pwd',v)}}>密码</InputItem>*/}
+                    </List>
                     <WhiteSpace />
                     <Button type="primary" size='small'>登录</Button>
                     <WhiteSpace />

@@ -10,7 +10,7 @@ mongoose.connection.on('connected',function () {
 const models = {
     user:{
         'user':{type:String, require: true},
-        'pwd':{type:Number, require:true},
+        'pwd':{type:String, require:true},
         'type':{type:String, require:true},
         'avater':{type:String},   //头像
         'desc':{type:String},     //个人简介或职位简介
