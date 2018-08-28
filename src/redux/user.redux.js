@@ -4,10 +4,11 @@ import getRedirectPath from '../util'
 const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
 const ERROR_MSG = 'ERROR_MSG'
 
+//用户信息
 const initState = {
     redirectTo:'',
-    isAuth:false,
-    msg:'',
+    isAuth:false,  //是否登录
+    msg:'',        //登录验证信息
     user:'',
     pwd:'',
     type:''
@@ -21,7 +22,7 @@ export function user(state=initState, action){
                 msg:'',
                 redirectTo:getRedirectPath(action.payload),
                 isAuth:true,
-                ...action.payload
+                ...action.payload  //帐号数据
             }
         case ERROR_MSG:
             return {

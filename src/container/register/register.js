@@ -7,6 +7,8 @@ import { register } from "../../redux/user.redux";
 
 import Logo from '../../component/logo/logo'
 
+//注册
+//装饰器
 @connect(
     state=>state.user,
     { register }
@@ -30,11 +32,12 @@ class Register extends Component{
     }
 
     register = ()=>{
+        //调用装饰器定义的register
         this.props.register(this.state);
     }
 
     componentDidMount(){
-        console.log(this.props);
+        // console.log(this.props);
     }
 
     render (){
@@ -47,7 +50,7 @@ class Register extends Component{
                 <WingBlank>
                     {this.props.msg ? <p className="err-msg">{this.props.msg}</p> : null}
                     <List>
-                        {/*<InputItem
+                        <InputItem
                             onChange={v=>{this.handlerChange('user',v)}}
                         >用户</InputItem>
                         <WhiteSpace />
@@ -65,12 +68,10 @@ class Register extends Component{
                         </RadioItem>
                         <RadioItem checked={this.state.type==='boss'} onChange={()=>this.handlerChange('type','boss')}>
                             BOSS
-                        </RadioItem>*/}
+                        </RadioItem>
                     </List>
                     <WhiteSpace />
-                    <Button type="primary" size='small'
-                            onClick={this.register}
-                    >注册</Button>
+                    <Button type="primary" size='small' onClick={this.register}>注册</Button>
                 </WingBlank>
             </div>
 

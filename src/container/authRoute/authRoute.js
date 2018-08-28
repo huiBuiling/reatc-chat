@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import axios from 'axios'
 import { withRouter } from 'react-router-dom'
 
+//登录或注册处理
 @withRouter
 class AuthRoute extends Component{
     constructor(props){
@@ -14,11 +15,12 @@ class AuthRoute extends Component{
     componentDidMount(){
         const publicList = ['/login','/register'];
         const pathname = this.props.location.pathname;
+        //判断是否已经是登录或者注册页则不需要验证是否登录
         if(publicList.indexOf(pathname)>-1){
             return null;
         }
 
-        //获取用户信息
+        //获取用户信息判断是否登录
         axios.get('/user/info').then(res => {
             if (res.status === 200) {
                 if (res.data.code === 0) {

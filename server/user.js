@@ -4,6 +4,7 @@ const Router = express.Router();
 const model = require('./model')
 const User = model.getModel('user');
 
+//用户信息
 Router.post('/register',function (req,res) {
     console.log(req.body)
     let {user, pwd, type} = req.body;
@@ -11,7 +12,7 @@ Router.post('/register',function (req,res) {
         if(doc){
             return res.json({code:1,msg:'用户名重复'})
         }
-        pwd = md5Pwd(pwd);
+        pwd = md5Pwd(pwd);  //加密
         User.create({user,pwd,type},function (err, doc) {
             debugger
             if(err){

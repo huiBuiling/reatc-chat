@@ -3,6 +3,7 @@ import { Button,WingBlank, WhiteSpace, List, InputItem } from 'antd-mobile'
 
 import Logo from '../../component/logo/logo'
 
+//登录
 class Login extends Component{
     constructor(props){
         super(props);
@@ -30,12 +31,10 @@ class Login extends Component{
                     <List>
                         <InputItem
                             onChange={v=>{this.handlerChange('user',v)}}
-                            onErrorClick={()=>{console.log('aaaaaaaaa')}}
-                            onExtraClick={()=>{console.log('aaaaaaaaa')}}
                             onVirtualKeyboardConfirm={v => console.log('onVirtualKeyboardConfirm:', v)}
                         >用户</InputItem>
                         <WhiteSpace />
-                        {/*<InputItem onChange={v=>{this.handlerChange('pwd',v)}}>密码</InputItem>*/}
+                        <InputItem onChange={v=>{this.handlerChange('pwd',v)}}>密码</InputItem>
                     </List>
                     <WhiteSpace />
                     <Button type="primary" size='small'>登录</Button>

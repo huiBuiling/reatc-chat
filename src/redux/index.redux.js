@@ -1,6 +1,7 @@
 const ADD_PRO = '添加项目';
 const DEL_PRO = '删除项目';
 
+//demo
 //reducer
 export const counter = (state={ num: 10}, action)=>{
     switch (action.type){

@@ -1,4 +1,4 @@
-
+//设置跳转路径
 export default function getRedirectPath({type, avatar}) {
     //根据用户信息 返回跳转地址
     // user.type /boss /genius

@@ -7,10 +7,10 @@ import { BrowserRouter, Route , Redirect, Switch} from 'react-router-dom'
 
 import Login from './container/login/login'
 import Register from './container/register/register'
-import AuthRoute from './component/authRoute/authRoute'
+import AuthRoute from './container/authRoute/authRoute'
 import Boss from './component/boss/boss'
 
-import reducers from './reducers'
+import reducers from './redux/reducers'
 import './config'
 
 const store = createStore(reducers,compose(
@@ -23,7 +23,7 @@ ReactDOM.render(
     (<Provider store={store}>
         <BrowserRouter>
             <div>
-                <AuthRoute></AuthRoute>
+                <AuthRoute></AuthRoute>  {/*登录或注册验证*/}
                 <Switch>
                     <Route path='/boss' exact component={Boss} ></Route>
                     <Route path='/login' exact component={Login} ></Route>

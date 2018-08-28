@@ -9,9 +9,12 @@ app.use(cookieParser());
 app.use(bodyParser.json())
 
 app.use('/user',userRouter);
+
+//测试
 app.get('/data',function(req,res){
     res.json({name:"huihui",age:"21"})
 });
-app.listen(5202,function(){
-    console.log('Node app start at port 5202');
+
+app.listen(5203,function(){
+    console.log('Node app start at port 5203');
 })
