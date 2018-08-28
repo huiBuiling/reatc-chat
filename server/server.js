@@ -6,7 +6,7 @@ const userRouter = require('./user');
 //新建app
 const app = express();
 app.use(cookieParser());
-app.use(bodyParser.json())
+app.use(bodyParser.json()); //可以解析post请求接收的json数据
 
 app.use('/user',userRouter);
 

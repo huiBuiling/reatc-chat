@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
-//链接mongo 且shi使用此地址集合
+//连接mongo 且使用此地址集合
 const DB_URL = 'mongodb://localhost:27017/chat'
 mongoose.connect(DB_URL);
-
+//连接成功打印
 mongoose.connection.on('connected',function () {
     console.log('mongo connect success')
 })
 
+//数据库模型
 const models = {
     user:{
         'user':{type:String, require: true},

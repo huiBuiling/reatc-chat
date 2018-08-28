@@ -1,5 +1,5 @@
 import axios from 'axios'
-import getRedirectPath from '../util'
+import getRedirectPath from '../util/util'
 
 const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
 const ERROR_MSG = 'ERROR_MSG'
@@ -52,8 +52,8 @@ export function register({user, pwd, repeatPwd, type}){
         return errorMsg('密码和确认密码不一致')
     }
     return dispatch=>{
+        //注册请求
         axios.post('/user/register',{user, pwd, type}).then(res=>{
-
             if(res.status === 200 && res.data.code === 0){
                 dispatch(registerSuccess({user, pwd, type}))
             }else{

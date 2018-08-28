@@ -4,7 +4,7 @@ const Router = express.Router();
 const model = require('./model')
 const User = model.getModel('user');
 
-//用户信息
+//注册信息
 Router.post('/register',function (req,res) {
     console.log(req.body)
     let {user, pwd, type} = req.body;
@@ -24,14 +24,16 @@ Router.post('/register',function (req,res) {
     })
 })
 
+//用户列表
 Router.get('/list',function (req,res) {
     User.find({},function (err, doc) {
         return res.json(doc);
     })
 })
 
-
+//注册状态是否成功
 Router.get('/info',function (req,res) {
+    //用户有没有cookie
     return res.json({code:1})
 })
 
