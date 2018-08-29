@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import { Button,WingBlank, WhiteSpace, List, InputItem } from 'antd-mobile'
+import { Button,WingBlank, WhiteSpace, List, InputItem,Toast } from 'antd-mobile'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom'
 
@@ -23,7 +23,6 @@ class Login extends Component{
     }
     //登录
     login = ()=>{
-        debugger
         this.props.login(this.state);
     }
 
@@ -37,6 +36,12 @@ class Login extends Component{
         this.setState({
             [key]:val
         });
+    }
+
+    componentDidMount(){
+        /*if(this.props.msg){
+            Toast.info(this.props.msg, 200, null, false);
+        }*/
     }
 
     render (){

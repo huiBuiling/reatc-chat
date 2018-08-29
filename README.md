@@ -655,4 +655,13 @@ handlerChange = (key, val)=>{
 
 用户列表
 http://localhost:5203/user/list
+
+
+cookie记录：Application->cookie
+user.js
+login:
+res.cookie('userid', doc._id);  //写入cookie,判断是否登录
+
+info:
+
 ```

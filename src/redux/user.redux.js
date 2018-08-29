@@ -4,6 +4,7 @@ import getRedirectPath from '../util/util'
 const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
 const ERROR_MSG = 'ERROR_MSG';
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+const LOAD_DATA = 'LOAD_DATA';
 
 //用户信息
 const initState = {
@@ -33,7 +34,12 @@ export function user(state=initState, action){
                 isAuth:true,
                 ...action.payload  //帐号数据
             }
-        case ERROR_MSG:
+        case LOAD_DATA:  //登录后获取用户信息
+            return {
+                ...state,
+                ...action.payload  //帐号数据
+            }
+        case ERROR_MSG:  //错误信息
             return {
                 ...state,
                 isAuth:false,
@@ -45,7 +51,6 @@ export function user(state=initState, action){
 }
 
 //action
-
 //登录回调
 export function loginSuccess(data){
     return {type:LOGIN_SUCCESS, payload:data}
@@ -59,6 +64,11 @@ export function registerSuccess(data){
 //错误信息
 export function errorMsg(msg){
     return { msg, type:ERROR_MSG}
+}
+
+//登录成功用户信息回调
+export function loadData(userinfo){
+    return {type:LOAD_DATA, payload:userinfo}
 }
 
 //登录请求
@@ -76,7 +86,6 @@ export function login({user, pwd}) {
     return dispatch=>{
         axios.post('/user/login',{user, pwd}).then(res=>{
             if(res.status === 200 && res.data.code === 0){
-                debugger
                 dispatch(loginSuccess(res.data.data));
             }else{
                 dispatch(errorMsg(res.data.msg));
