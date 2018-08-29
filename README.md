@@ -1,4 +1,4 @@
-# reatc-chat 招聘模拟
+# reatc-chat 招聘模拟学习
 
 > 创建项目：
 ```
