@@ -25,12 +25,14 @@ class Register extends Component{
         this.register = this.register.bind(this)
     }
 
+    //值改变
     handlerChange = (key, val)=>{
         this.setState({
             [key]:val
         });
     }
 
+    //注册
     register = ()=>{
         //调用装饰器定义的register
         this.props.register(this.state);
@@ -48,8 +50,8 @@ class Register extends Component{
                 <Logo />
                 <h2 align="center">注册</h2>
                 <WingBlank>
-                    {this.props.msg ? <p className="err-msg">{this.props.msg}</p> : null}
                     <List>
+                        {this.props.msg ? <p className="err-msg">{this.props.msg}</p> : null}
                         <InputItem
                             onChange={v=>{this.handlerChange('user',v)}}
                         >用户</InputItem>
