@@ -3,6 +3,32 @@ const utils = require('utility');
 const Router = express.Router();
 const model = require('./model')
 const User = model.getModel('user');
+const _filter = {'pwd':0,'__v':0}
+
+//用户列表
+Router.get('/list',function (req,res) {
+    //删除全部数据
+    // User.remove({},function (err,doc) {});
+
+    //获取全部数据
+    User.find({},function (err, doc) {
+        return res.json(doc);
+    })
+})
+
+//登录
+Router.post('/login',function (req,res) {
+    const { user, pwd } = req.body;
+    console.log(user + ": " + md5Pwd(pwd));
+    User.findOne({user,pwd:md5Pwd(pwd)},_filter,function (err, doc) {
+        debugger
+        if(!doc){
+            return res.json({code:1,msg:'用户名或密码不存在'})
+        }
+        // res.cookie('userid', doc._id)
+        return res.json({code:0,data:doc});
+    })
+})
 
 //注册信息
 Router.post('/register',function (req,res) {
@@ -14,20 +40,12 @@ Router.post('/register',function (req,res) {
         }
         pwd = md5Pwd(pwd);  //加密
         User.create({user,pwd,type},function (err, doc) {
-            debugger
             if(err){
                 return res.json(err)
                 // return res.json({code:1, msg:'后端出错了'})
             }
             return res.json({code:0})  //登录成功
         })
-    })
-})
-
-//用户列表
-Router.get('/list',function (req,res) {
-    User.find({},function (err, doc) {
-        return res.json(doc);
     })
 })
 
