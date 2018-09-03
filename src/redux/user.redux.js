@@ -1,24 +1,25 @@
 import axios from 'axios'
 import getRedirectPath from '../util/util'
 
-const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
+// const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
+// const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 const ERROR_MSG = 'ERROR_MSG';
-const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 const LOAD_DATA = 'LOAD_DATA';
+const AUTH_SUCCESS = 'AUTH_SUCCESS';
 
 //用户信息
 const initState = {
     redirectTo:'',
-    isAuth:false,  //是否登录
+    // isAuth:false,  //是否登录
     msg:'',        //登录验证信息
     user:'',
-    pwd:'',
+    // pwd:'',
     type:''
 }
 //reducer
 export function user(state=initState, action){
     switch (action.type){
-        case LOGIN_SUCCESS:  //登录
+        /*case LOGIN_SUCCESS:  //登录
             return {
                 ...state,
                 msg:'',
@@ -32,6 +33,13 @@ export function user(state=initState, action){
                 msg:'',
                 redirectTo:getRedirectPath(action.payload),
                 isAuth:true,
+                ...action.payload  //帐号数据
+            }*/
+        case AUTH_SUCCESS:  //更新
+            return {
+                ...state,
+                msg:'',
+                redirectTo:getRedirectPath(action.payload),
                 ...action.payload  //帐号数据
             }
         case LOAD_DATA:  //登录后获取用户信息
@@ -51,7 +59,7 @@ export function user(state=initState, action){
 }
 
 //action
-//登录回调
+/*//登录回调
 export function loginSuccess(data){
     return {type:LOGIN_SUCCESS, payload:data}
 }
@@ -59,6 +67,13 @@ export function loginSuccess(data){
 //注册回调
 export function registerSuccess(data){
     return {type:REGISTER_SUCCESS, payload:data}
+}*/
+
+//更新回调
+export function authSuccess(data){
+    //过滤 pwd
+    const {pwd,...datas} = data;
+    return {type:AUTH_SUCCESS, payload:datas}
 }
 
 //错误信息
@@ -86,7 +101,8 @@ export function login({user, pwd}) {
     return dispatch=>{
         axios.post('/user/login',{user, pwd}).then(res=>{
             if(res.status === 200 && res.data.code === 0){
-                dispatch(loginSuccess(res.data.data));
+                // dispatch(loginSuccess(res.data.data));
+                dispatch(authSuccess(res.data.data));
             }else{
                 dispatch(errorMsg(res.data.msg));
             }
@@ -106,7 +122,21 @@ export function register({user, pwd, repeatPwd, type}){
         //注册请求
         axios.post('/user/register',{user, pwd, type}).then(res=>{
             if(res.status === 200 && res.data.code === 0){
-                dispatch(registerSuccess({user, pwd, type}))
+                // dispatch(registerSuccess({user, pwd, type}))
+                dispatch(authSuccess({user, pwd, type}))
+            }else{
+                dispatch(errorMsg(res.data.msg))
+            }
+        })
+    }
+}
+
+//更新请求
+export function update(data) {
+    return dispatch=>{
+        axios.post('/user/update',data).then(res=>{
+            if(res.status === 200 && res.data.code === 0){
+                dispatch(authSuccess(res.data.data));
             }else{
                 dispatch(errorMsg(res.data.msg))
             }

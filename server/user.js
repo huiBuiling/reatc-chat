@@ -58,6 +58,25 @@ Router.post('/register',function (req,res) {
     })
 })
 
+//更新
+Router.post('/update',function (req,res) {
+    //cookie 检测
+    const { userid } = req.cookies;
+    if(!userid){
+        return res.json({code:1});
+    }
+
+    const body = req.body;
+    User.findByIdAndUpdate(userid,body,function (err,doc) {
+        const data = Object.assign({},{
+            user:doc.user,
+            type:doc.type
+        },body);
+        return res.json({code:0,data});
+    })
+
+});
+
 //用户cookie检测
 Router.get('/info',function (req,res) {
     const { userid } = req.cookies;

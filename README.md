@@ -539,7 +539,7 @@ npm install axios --save
 packjson添加：
 "proxy": "http://localhost:5203",
 
-http://localhost:3000/
+http://localhost:5203/
 http://localhost:5203/data
 
 //测试
@@ -663,5 +663,107 @@ login:
 res.cookie('userid', doc._id);  //写入cookie,判断是否登录
 
 info:
+//用户cookie检测
+Router.get('/info',function (req,res) {
+    const { userid } = req.cookies;
+    if(!userid){
+        return res.json({code:1});
+    }
+    User.findOne({_id:userid}, _filter, function (err,doc) {
+        if(err){
+            return res.json({code:1,msg:'后端出错了！'})
+        }
+        return res.json({code:0,data:doc});
+    })
+})
 
+
+//更新
+user.redux:
+const AUTH_SUCCESS = 'AUTH_SUCCESS';
+//用户信息
+const initState = {redirectTo:'',msg:'',user:'', pwd:'', type:''}
+//reducer
+export function user(state=initState, action){
+    switch (action.type){
+        case AUTH_SUCCESS:  //更新
+            return {
+                ...state, msg:'', redirectTo:getRedirectPath(action.payload), ...action.payload  //帐号数据
+            }
+        case LOAD_DATA:  //登录后获取用户信息
+            return { ...state, ...action.payload  //帐号数据 }
+        case ERROR_MSG:  //错误信息
+            return { ...state, isAuth:false, msg:action.msg }
+        default:
+            return state
+    }
+}
+
+//action
+//更新回调
+export function authSuccess(data){
+    return {type:AUTH_SUCCESS, payload:data}
+}
+
+//错误信息
+export function errorMsg(msg){
+    return { msg, type:ERROR_MSG}
+}
+
+//登录成功用户信息回调
+export function loadData(userinfo){
+    return {type:LOAD_DATA, payload:userinfo}
+}
+
+//登录请求 | 注册请求 中修改
+dispatch(loginSuccess(res.data.data)) | dispatch(registerSuccess(res.data.data))
+修改为: dispatch(authSuccess(res.data.data));
+
+//更新请求
+export function update(data) {
+    return dispatch=>{
+        axios.post('/user/update',data).then(res=>{
+            if(res.status === 200 && res.data.code === 0){
+                dispatch(authSuccess(res.data.data));
+            }else{
+                dispatch(errorMsg(res.data.msg))
+            }
+        })
+    }
+}
+
+server/user
+Router.post('/update',function (req,res) {
+    //cookie 检测
+    const { userid } = req.cookies;
+    if(!userid){
+        return res.json({code:1});
+    }
+
+    const body = req.body;
+    User.findByIdAndUpdate(userid,body,function (err,doc) {
+        const data = Object.assign({},{
+            user:doc.user,
+            type:doc.type
+        },body);
+        return res.json({code:0,data});
+    })
+
+});
+
+查看提交信息
+http://localhost:5203/user/info
+```
+
+> 头像选择
+```
+react:PropTypes （强类校验）
+安装：cnpm install prop-types --save
+
+使用：
+import PropTypes from 'prop-types';
+   static propTypes = {
+       selectAvatar: PropTypes.func.isRequired  //方法检测
+   }
+    constructor(props){}
 ```

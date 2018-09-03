@@ -7,8 +7,9 @@ import { BrowserRouter, Route , Switch} from 'react-router-dom'
 
 import Login from './container/login/login'
 import Register from './container/register/register'
-import AuthRoute from './container/authRoute/authRoute'
-import Boss from './component/boss/boss'
+import AuthRoute from './component/authRoute/authRoute'
+import BossInfo from './container/bossinfo/bossinfo'
+import GeniusInfo from './container/geniusinfo/geniusinfo'
 
 import reducers from './redux/reducers'
 import './util/config'
@@ -25,7 +26,8 @@ ReactDOM.render(
             <div>
                 <AuthRoute></AuthRoute>  {/*登录或注册验证*/}
                 <Switch>
-                    <Route path='/boss' exact component={Boss} ></Route>
+                    <Route path='/bossinfo' exact component={BossInfo} ></Route>
+                    <Route path='/geniusinfo' exact component={GeniusInfo} ></Route>
                     <Route path='/login' exact component={Login} ></Route>
                     <Route path='/register' exact component={Register} ></Route>
                 </Switch>
