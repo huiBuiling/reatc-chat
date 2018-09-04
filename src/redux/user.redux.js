@@ -10,10 +10,10 @@ const AUTH_SUCCESS = 'AUTH_SUCCESS';
 //用户信息
 const initState = {
     redirectTo:'',
+    // pwd:'',
     // isAuth:false,  //是否登录
     msg:'',        //登录验证信息
     user:'',
-    // pwd:'',
     type:''
 }
 //reducer

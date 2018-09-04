@@ -41,17 +41,17 @@ export default class GeniusInfo extends Component{
 
     render (){
         const path = this.props.location.pathname;
-        const redirect = this.props.redirectTo && this.props.redirectTo !== path;
+        const redirect = this.props.redirectTo;
         return (
             <div>
-                {redirect ? <Redirect to={this.props.redirectTo}></Redirect> : null}
+                {redirect && redirect !== path ? <Redirect to={this.props.redirectTo}></Redirect> : null}
                 <NavBar
                     mode="dark"
                     icon={<Icon type="left" />}
                     rightContent={[
                         <Icon key="0" type="search" style={{ marginRight: '16px' }} />
                     ]}
-                >GeniusInfo</NavBar>
+                >完善个人信息页</NavBar>
                 <AvatarSelector
                     selectAvatar={this.selectAvatar}
                 />

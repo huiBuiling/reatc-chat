@@ -16,3 +16,59 @@ body {
   padding-top: 10px;
   margin-bottom: 5px;
 }
+
+.app-con{
+ background: #fafafa;
+}
+.app-con .app-header{
+
+}
+.app-con .app-detail{
+  position: fixed;
+  height: calc(100% - 45px);
+  width: 100%;
+  top: 45px;
+}
+.app-con .app-detail .app-detail-con{
+  background: #fafafa;
+  height: 100%;
+  text-align: left;
+}
+.app-con .app-detail .app-detail-con .am-tab-bar-bar .am-tab-bar-tab{
+  cursor: pointer;
+}
+.app-con .app-card{
+  margin-bottom: 10px;
+}
+.app-con .app-card .am-card-header{
+  padding: 5px 15px;
+}
+.app-con .app-card .am-card-header img{
+    width: 50px;
+    height: 50px;
+    margin-right: 8px;
+}
+.app-con .app-card .am-card-header-content{
+  font-size: 14px;
+}
+.app-con .app-card .am-card-header-extra{
+  font-size: 15px;
+}
+.app-con .app-card .am-card-body{
+  /*padding: 15px 15px 6px;*/
+}
+.app-con .app-card .am-card-body h5{
+  margin: 0 0 10px 0;
+  font-size: 16px;
+  font-weight: normal;
+}
+.app-con .app-card .am-card-body span{
+  float: right;
+  color: #0891ff;
+}
+.app-con .app-card .am-card-body p{
+  margin: 0;
+  line-height: 20px;
+  font-size: 13px;
+  color: #aaa;
+}

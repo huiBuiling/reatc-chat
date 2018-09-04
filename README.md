@@ -435,7 +435,7 @@ import { BrowserRouter, Route, Link } from 'react-router-dom'
 > 其他组件
   a. url参数，Route组件参数可用冒号标识参数
   b. Redirect组件 跳转
-  c. Switch只渲染一个子Route组件
+  c. Switch只渲染匹配中的第一个子Route组件
 
   history:
   location:
@@ -762,8 +762,33 @@ react:PropTypes （强类校验）
 
 使用：
 import PropTypes from 'prop-types';
-   static propTypes = {
-       selectAvatar: PropTypes.func.isRequired  //方法检测
+   static PropTypes = {
+       selectAvatar: PropTypes.func.isRequired
    }
     constructor(props){}
+```
+
+> 牛人列表
+```
+disborad:
+<Switch>
+    {navList.map(item =>(
+        <Route key={item.path} path={item.path} component={item.component} />
+    ))}
+</Switch>
+
+navBar:
+<TabBar.Item
+    title={item.title}
+    key={item.title}
+    icon={<div style={this.getStyles(item.icon)}/>}
+    selectedIcon={<div style={this.getStyles(item.selectedIcon)}/>}
+    selected={pathname === item.path}
+    badge={1}
+    onPress={() => {
+        this.props.history.push(item.path)
+    }}
+/>
+
+http://localhost:5203/user/list?type=genius
 ```

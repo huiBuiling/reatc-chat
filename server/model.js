@@ -8,12 +8,12 @@ mongoose.connection.on('connected',function () {
 })
 
 //数据库模型
-const models = {
+const models = {  //对应属性不相符则无法插入
     user:{
         'user':{type:String, require: true},
         'pwd':{type:String, require:true},
         'type':{type:String, require:true},
-        'avater':{type:String},   //头像
+        'avatar':{type:String},   //头像
         'desc':{type:String},     //个人简介或职位简介
         'title':{type:String},    //职位名
         'company':{type:String},  //boss字段  公司名

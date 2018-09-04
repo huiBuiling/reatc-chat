@@ -19,8 +19,8 @@ export default class AvatarSelector extends Component{
 
     render (){
         //alls imgName
-        const avatorList = 'animate,animate2,animate3,animate4,animate5,girl,girl2,girl3,girl4,girl5,boy,boy2,boy3,boy4,boy5'.split(',').map(item=>({
-                               icon:require(`./avator/${item}.jpg`),
+        const avatarList = 'animate,animate2,animate3,animate4,animate5,girl,girl2,girl3,girl4,girl5,boy,boy2,boy3,boy4,boy5'.split(',').map(item=>({
+                               icon:require(`./avatar/${item}.jpg`),
                                text:item
                            }));
         const header = this.state.text ?
@@ -32,7 +32,7 @@ export default class AvatarSelector extends Component{
             <div>
                 {header}
                 <Grid
-                    data={avatorList}
+                    data={avatarList}
                     columnNum={5}
                     activeStyle={true}
                     onClick={(item)=> {

@@ -53,7 +53,7 @@ export default class BossInfo extends Component{
                     rightContent={[
                         <Icon key="0" type="search" style={{ marginRight: '16px' }} />
                     ]}
-                >BossInfo</NavBar>
+                >完善个人信息页</NavBar>
                 <AvatarSelector selectAvatar={this.selectAvatar} />
                 <InputItem onChange={(v)=>this.onChange('title',v)}>
                     招聘职位

@@ -6,10 +6,10 @@ import { loadData } from '../../redux/user.redux'
 
 //登录或注册处理
 @withRouter
-    @connect(  //注：要写在@withRouter下面
-        null,
-        { loadData }
-    )
+@connect(  //注：要写在@withRouter下面
+    null,
+    { loadData }
+)
 class AuthRoute extends Component{
     constructor(props){
         super(props);

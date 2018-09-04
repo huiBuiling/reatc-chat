@@ -1,5 +1,6 @@
 const express = require('express');
 const utils = require('utility');
+
 const Router = express.Router();
 const model = require('./model')
 const User = model.getModel('user');
@@ -7,12 +8,13 @@ const _filter = {'pwd':0,'__v':0};  //过滤隐藏密码加密
 
 //用户列表
 Router.get('/list',function (req,res) {
+    const { type } = req.query;
     //删除全部数据
     // User.remove({},function (err,doc) {});
 
-    //获取全部数据
-    User.find({},function (err, doc) {
-        return res.json(doc);
+    //获取全部数据 type:'boss'
+    User.find({type},function (err, doc) {
+        return res.json({code:0,data:doc});
     })
 })
 
@@ -30,7 +32,6 @@ Router.post('/login',function (req,res) {
 
 //注册信息
 Router.post('/register',function (req,res) {
-    console.log(req.body)
     let {user, pwd, type} = req.body;
     User.findOne({user},function (err, doc) {
         if(doc){
