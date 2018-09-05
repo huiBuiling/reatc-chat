@@ -789,6 +789,10 @@ navBar:
         this.props.history.push(item.path)
     }}
 />
+thumb={require(`../../assert/image/avatar/${item.avatar}.jpg`)}
 
 http://localhost:5203/user/list?type=genius
+
+注意：头像字段无法存入数据库
+解决：server 里面的数据模型字段不匹配（拼写有误）
 ```
