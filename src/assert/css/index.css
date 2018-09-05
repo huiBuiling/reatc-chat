@@ -17,58 +17,98 @@ body {
   margin-bottom: 5px;
 }
 
-.app-con{
+.app{
  background: #fafafa;
 }
-.app-con .app-header{
+/*header*/
+.app .app-header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
 
-}
-.app-con .app-detail{
+/*footer*/
+.app .app-footer{
   position: fixed;
-  height: calc(100% - 45px);
+  left: 0;
+  bottom: 0;
   width: 100%;
-  top: 45px;
 }
-.app-con .app-detail .app-detail-con{
+.app .app-footer .app-footer-con{
   background: #fafafa;
   height: 100%;
   text-align: left;
 }
-.app-con .app-detail .app-detail-con .am-tab-bar-bar .am-tab-bar-tab{
-  cursor: pointer;
+.app .app-footer .am-tab-bar{}
+.app .app-footer .am-tab-bar .am-tabs{}
+.app .app-footer .am-tab-bar .am-tabs .am-tabs-tab-bar-wrap{
+    background: #fff;
+    z-index: 1000;
 }
-.app-con .app-card{
+.am-tabs-content-wrap{
+    z-index: 999;
+}
+/*CONTENT*/
+.app .app-con{
+    margin: 45px 0;
+}
+/*user list */
+.app .app-con .app-card{
   margin-bottom: 10px;
 }
-.app-con .app-card .am-card-header{
+.app .app-con .app-card .am-card-header{
   padding: 5px 15px;
 }
-.app-con .app-card .am-card-header img{
+.app .app-con .app-card .am-card-header img{
     width: 50px;
     height: 50px;
     margin-right: 8px;
 }
-.app-con .app-card .am-card-header-content{
+.app .app-con .app-card .am-card-header-content{
   font-size: 14px;
 }
-.app-con .app-card .am-card-header-extra{
+.app .app-con .app-card .am-card-header-extra{
   font-size: 15px;
 }
-.app-con .app-card .am-card-body{
+.app .app-con .app-card .am-card-body{
   /*padding: 15px 15px 6px;*/
 }
-.app-con .app-card .am-card-body h5{
+.app .app-con .app-card .am-card-body h5{
   margin: 0 0 10px 0;
   font-size: 16px;
   font-weight: normal;
 }
-.app-con .app-card .am-card-body span{
+.app .app-con .app-card .am-card-body span{
   float: right;
   color: #0891ff;
 }
-.app-con .app-card .am-card-body p{
+.app .app-con .app-card .am-card-body p{
   margin: 0;
   line-height: 20px;
   font-size: 13px;
   color: #aaa;
+}
+
+/*my center*/
+.app .app-con .app-my .am-result{
+
+}
+.app .app-con .app-my .am-result .am-result-pic img{
+    width: 100%;
+    height: 100%;
+}
+.app .app-con .app-my .my-list{
+
+}
+.app .app-con .app-my .my-list .am-list-body p{
+    margin: 5px 0;
+}
+.app .app-con .app-my .my-list-out{
+    margin-top: 30px;
+}
+.app .app-con .app-my .my-list-out .am-list-content{
+    text-align: center;
+    color: #0891ff;
 }

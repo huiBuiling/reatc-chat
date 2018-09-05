@@ -6,6 +6,7 @@ import getRedirectPath from '../util/util'
 const ERROR_MSG = 'ERROR_MSG';
 const LOAD_DATA = 'LOAD_DATA';
 const AUTH_SUCCESS = 'AUTH_SUCCESS';
+const LOGIN_OUT = 'LOGIN_OUT';
 
 //用户信息
 const initState = {
@@ -42,6 +43,11 @@ export function user(state=initState, action){
                 redirectTo:getRedirectPath(action.payload),
                 ...action.payload  //帐号数据
             }
+        case LOGIN_OUT:
+            return {
+                ...initState,
+                redirectTo:'/login'
+            }
         case LOAD_DATA:  //登录后获取用户信息
             return {
                 ...state,
@@ -68,6 +74,11 @@ export function loginSuccess(data){
 export function registerSuccess(data){
     return {type:REGISTER_SUCCESS, payload:data}
 }*/
+
+//退出登录清空数据
+export function loginOutSubmit() {
+    return {type:LOGIN_OUT}
+}
 
 //更新回调
 export function authSuccess(data){

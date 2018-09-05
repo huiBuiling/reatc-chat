@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import { Switch, Route } from 'react-router-dom'
 
 import NavListBar from './navBar'
-import Boss from './boss'
-import Genius from './genius'
+import Boss from './userlist/boss'
+import Genius from './userlist/genius'
 import Msg from './msg'
-import User from './user'
+import User from './my/user'
 
 import niur from '../../assert/image/svg/nr.svg'
 import niurI from '../../assert/image/svg/nr-o.svg'
@@ -67,7 +67,7 @@ export default class Disboard extends Component{
         ];
         const { pathname } = this.props.location;
         return (
-            <div className="app-con">
+            <div className="app">
                 <NavBar
                     className="app-header"
                     mode="dark"
@@ -77,12 +77,12 @@ export default class Disboard extends Component{
                     ]}
                 >{navList.find(item => item.path === pathname).title}</NavBar>
 
-                <div><Switch>
-                    {navList.map(item =>(
-                        <Route key={item.path} path={item.path} component={item.component} />
-                    ))}
-                </Switch>
-
+                <div className="app-con">
+                    <Switch>
+                        {navList.map(item =>(
+                            <Route key={item.path} path={item.path} component={item.component} />
+                        ))}
+                    </Switch>
                 </div>
 
                 <NavListBar navList={navList}/>

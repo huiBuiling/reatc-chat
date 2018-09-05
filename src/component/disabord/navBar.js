@@ -3,6 +3,9 @@ import { TabBar } from 'antd-mobile';
 import {withRouter} from 'react-router-dom'
 
 @withRouter
+/**
+ * 对应footerbar
+ */
 export default class NavListBar extends Component{
     constructor(props){
         super(props);
@@ -23,7 +26,7 @@ export default class NavListBar extends Component{
         const navList = this.props.navList.filter(item => !item.hide);
         const { pathname } = this.props.location;
         return (
-           <div className="app-detail">
+           <div className="app-footer">
                     <TabBar
                         unselectedTintColor="#949494"
                         tintColor="#33A3F4"

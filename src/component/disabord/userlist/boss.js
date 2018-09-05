@@ -1,12 +1,15 @@
 import React,{Component} from 'react';
 import { Card, WingBlank, WhiteSpace } from 'antd-mobile';
 import { connect } from 'react-redux'
-import { getUserList } from "../../redux/chat.redux";
+import { getUserList } from "../../../redux/chat.redux";
 
 @connect(
     state=>state.chatUser,
     { getUserList }
 )
+/**
+ * boss 列表
+ */
 export default class Boss extends Component{
     constructor(props){
         super(props);
@@ -29,7 +32,7 @@ export default class Boss extends Component{
                         return (item.avatar ? <Card className="app-card" key={item.user}>
                                 <Card.Header
                                     title={item.user}
-                                    thumb={require(`../../assert/image/avatar/${item.avatar}.jpg`)}
+                                    thumb={require(`../../../assert/image/avatar/${item.avatar}.jpg`)}
                                     extra={<span>{item.title}</span>}
                                 />
                                 <Card.Body>
