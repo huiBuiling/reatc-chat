@@ -2,40 +2,34 @@ import React,{Component} from 'react';
 import { Button,WingBlank, WhiteSpace, List, InputItem } from 'antd-mobile'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom'
-
 import { login } from '../../redux/user.redux';
 import Logo from '../../component/logo/logo';
 
+import Form from '../HOComponent/HOComponentForm'
 //登录
 @connect(
     state=>state.user,
     { login }
 )
+@Form
 class Login extends Component{
     constructor(props){
         super(props);
         this.state={
-            user:'',
-            pwd:''
+            // user:'',
+            // pwd:''
         }
         this.register = this.register.bind(this);
         this.login = this.login.bind(this);
     }
     //登录
     login = ()=>{
-        this.props.login(this.state);
+        this.props.login(this.props.data);
     }
 
     //跳转注册页
     register = ()=>{
         this.props.history.push('/register')  //注册
-    }
-
-    //值改变
-    handlerChange = (key, val)=>{
-        this.setState({
-            [key]:val
-        });
     }
 
     componentDidMount(){
@@ -45,6 +39,7 @@ class Login extends Component{
     }
 
     render (){
+        const { handlerChange } = this.props;
         return (
             <div>
                 {this.props.redirectTo ? <Redirect to={this.props.redirectTo}></Redirect> : null}
@@ -54,11 +49,11 @@ class Login extends Component{
                     <List>
                         {this.props.msg ? <p className="err-msg">{this.props.msg}</p> : null}
                         <InputItem
-                            onChange={v=>{this.handlerChange('user',v)}}
+                            onChange={v=>{handlerChange('user',v)}}
                             // onVirtualKeyboardConfirm={v => console.log('onVirtualKeyboardConfirm:', v)}
                         >用户</InputItem>
                         <WhiteSpace />
-                        <InputItem onChange={v=>{this.handlerChange('pwd',v)}}>密码</InputItem>
+                        <InputItem onChange={v=>{handlerChange('pwd',v)}}>密码</InputItem>
                     </List>
                     <WhiteSpace />
                     <Button type="primary" size='small' onClick={this.login}>登录</Button>

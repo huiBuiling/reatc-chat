@@ -29,7 +29,7 @@ ReactDOM.render(
                 <Switch>  {/*其中之一符合即渲染，不在执行其下面的*/}
                     <Route path='/bossinfo' component={BossInfo} />
                     <Route path='/geniusinfo' component={GeniusInfo} />
-                    <Route path='/login' component={Login} />
+                    <Route path='/login' exact component={Login} />
                     <Route path='/register' component={Register} />
 
                     {/* 不添加Switch ，则所有匹配路由下都会显示 */}
