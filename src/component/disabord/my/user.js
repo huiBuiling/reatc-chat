@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import { Button, Result, WhiteSpace, Modal, List, Toast} from 'antd-mobile';
+import { Result, WhiteSpace, Modal, List, Toast} from 'antd-mobile';
 import { connect } from 'react-redux';
 import { loginOutSubmit } from '../../../redux/user.redux'
 import browserCookies from 'browser-cookies';
@@ -49,9 +49,9 @@ export default class User extends Component{
             <div className="app-my">
                 <WhiteSpace />
                 <Result
-                    img={<img src={require(`../../../assert/image/avatar/${avatar}.jpg`)} />}
+                    img={<img alt={avatar} src={require(`../../../assert/image/avatar/${avatar}.jpg`)} />}
                     title={user}
-                    message={<div>{type == 'boss' ? company : null}</div>}
+                    message={<div>{type === 'boss' ? company : null}</div>}
                 />
                 <WhiteSpace />
                 <div>
@@ -61,12 +61,12 @@ export default class User extends Component{
                             // arrow="horizontal"
                             extra={title}
                         >职位</Item>
-                        {type == 'boss' ? <Item
+                        {type === 'boss' ? <Item
                             thumb="https://zos.alipayobjects.com/rmsportal/dNuvNrtqUztHCwM.png"
                             extra={money}
                         >薪资</Item> : null }
                     </List>
-                    <List renderHeader={() => {return type == 'boss' ? '职位描述':'个人技能'}} className="my-list">
+                    <List renderHeader={() => {return type === 'boss' ? '职位描述':'个人技能'}} className="my-list">
                         <Item wrap>
                             {desc.split('\n').map(item => {
                                 return <p key={item}>{item}</p>
