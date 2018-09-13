@@ -26,7 +26,7 @@ npm run eject 弹出配置文件，可以自定义配置webpack
 4. 展开符: Let arr = ['a'.'b','c'];  (…arr);
 
 5. object
-  a. const obj = {name:'imlc',course:'react'
+  a. const obj = {name:'imlc',course:'react'}
      Object.keys(obj).             //['name','course']
      Object.values(obj).          //['imlc','react']
      Object.entries(obj). //[{'name','imlc'},{'course','react'}]
@@ -437,6 +437,7 @@ import { BrowserRouter, Route, Link } from 'react-router-dom'
   b. Redirect组件 跳转
   c. Switch只渲染匹配中的第一个子Route组件
 
+  exact:严格匹配
   history:
   location:
   match:参数
@@ -789,10 +790,159 @@ navBar:
         this.props.history.push(item.path)
     }}
 />
+
 thumb={require(`../../assert/image/avatar/${item.avatar}.jpg`)}
 
 http://localhost:5203/user/list?type=genius
 
 注意：头像字段无法存入数据库
 解决：server 里面的数据模型字段不匹配（拼写有误）
+
+chat.user.redux.js getUserList()
+this.props.getUserList('boss' | 'genius');
+```
+
+> 个人中心
+```
+user.redux 获取展示列表
+退出登录（清除cookie）
+
+npm isntall browser-cookies --save
+
+user.js
+//擦除 cookie 下 userid
+browserCookies.erase('userid');
+
+//redux 数据变为初始
+case LOGIN_OUT:
+    return {
+        ...initState,
+        redirectTo:'/login'
+    }
+```
+
+> 高阶组件(属性代理，反向继承)
+```
+react-redux中的connect就是一个高阶组件
+
+//高阶函数编程（函数=》参数，返回值）
+function hello() {
+    console.log("hello huihui!")
+}
+function WrapperHello(fn) {
+    return function () {
+        console.log("hello huihui1!");
+        fn();
+        console.log("hello huihui2!")
+    }
+}
+hello = WrapperHello(hello);
+hello();  //返回新函数
+
+* 属性代理：
+function WrapperHello(Comp) {
+    class WrapperHelloComp extends Component{
+        render (){
+            return <div>
+                <h5>hello niuniu!</h5>
+                <Comp name="ccc" {...this.props} />
+            </div>
+        }
+    }
+    return WrapperHelloComp
+}
+
+class Hello extends Component{
+    render (){
+        return <h5>hello huihui!<em>{this.props.name}</em></h5>
+    }
+}
+
+Hello = WrapperHello(Hello); ==>简写为
+@WrapperHello
+class Hello extends Component{...}
+
+显示调用：<Hello></Hello>
+
+* 反向继承：
+```
+
+> Socket.io
+```
+* 基于事件的实时双向通信库
+    1. 基于webscoket协议
+    2. 前后端通过事件进行双向通信
+    3. 配合express,快速开发实时应用
+
+* Socket.io 和 ajax 区别：
+    * 基于不同的网络协议
+        1. Ajax基于http协议，单向，实时获取数据只能论询
+        2. Socket.io基于webscoket协议，后端可以主动推送数据
+        3. 现代浏览器均支持webscoket协议
+
+* Socket.io 后端API 配合express
+    1. Io = require('socket.io')(http)
+    2. io.on 监听事件
+    3. io.emit 触发事件
+
+* Socket.io 前端API 配合express
+    1. import io from 'socket.io-client'
+    2. io.on 监听事件
+    3. io.emit 触发事件
+
+npm install socket.io --save
+npm install socket.io-client --save
+```
+
+> 聊天
+```
+<Route path='/chat/:user' component={Chat} />
+
+server:
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+//io 全局连接请求
+io.on('connection',function(socket){
+    //socket 当前连接请求
+    socket.on('sendMsg',function(data){
+        console.log(data);
+        //发送全局消息
+        io.emit('receiveMsg',data);
+    })
+})
+
+chat :
+import io from 'socket.io-client'
+let socket = io('ws://localhost:5203');
+socket.on('receiveMsg',(data)=>{//实时消息连接发送
+    this.setState({
+        msg:[...this.state.msg,data.text]
+    })
+})
+
+---------------------------------------------------
+识别对应人：
+chat.redux:
+const MSG_LIST = 'MSG_LIST';   //获取聊天列表
+const MSG_RECV = 'MSG_RECV';   //读取信息
+const MSG_READ = 'MSG_READ';   //标识已读
+
+入数据库：
+数据模型：
+chat:{
+    'chatid':{type:String, require:true}, //id排序 ，一次查询
+
+    'from':{type:String, require:true},  //从那里发出来
+    'to':{type:String, require:true},  //发给谁
+
+    'read':{type:Boolean, default:false}, //已读数据，只对 to有效
+
+    'content':{type:String, require:true, default:''},  //内容
+    'createTime':{type:Number, default:new Date().getTime()}  //时间戳
+}
+
+bug:
+1. 初次发送消息会显示两次
+2. 路由可随意切换
+3. 过滤后brage 点击消息页才显示数量
 ```

@@ -48,10 +48,6 @@ class Register extends Component{
         this.props.register(this.props.data);
     }
 
-    componentDidMount(){
-        // console.log(this.props);
-    }
-
     render (){
         const RadioItem = Radio.RadioItem;
         const { data,handlerChange } = this.props;

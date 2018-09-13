@@ -1,8 +1,11 @@
 import React,{Component} from 'react';
 import { Card, WingBlank, WhiteSpace } from 'antd-mobile';
-import { connect } from 'react-redux'
-import { getUserList } from "../../../redux/chat.redux";
+ // import { withRouter } from 'react-router-dom'
 
+import { connect } from 'react-redux'
+import { getUserList } from "../../../redux/chat.user.redux";
+
+// @withRouter
 @connect(
     state=>state.chatUser,
     { getUserList }
@@ -22,6 +25,11 @@ export default class Boss extends Component{
         this.props.getUserList('boss');
     }
 
+    //跳转到对应聊天人（genius）
+    handlerRedict = (item)=>{
+        this.props.history.push(`/chat/${item}`)
+    }
+
     render (){
         const bossData = this.props.userList ? this.props.userList : this.state.bossData
         return (
@@ -29,7 +37,8 @@ export default class Boss extends Component{
                 <WingBlank size="lg">
                     <WhiteSpace size="lg" />
                     {bossData.map(item =>{
-                        return (item.avatar ? <Card className="app-card" key={item.user}>
+                        return (item.avatar ? 
+                            <Card className="app-card" key={item.user} onClick={()=>this.handlerRedict(item._id)}>
                                 <Card.Header
                                     title={item.user}
                                     thumb={require(`../../../assert/image/avatar/${item.avatar}.jpg`)}

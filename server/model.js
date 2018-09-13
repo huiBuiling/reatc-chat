@@ -20,7 +20,15 @@ const models = {  //对应属性不相符则无法插入
         'money':{type:String}     //boss字段  薪资
     },
     chat:{
+        'chatid':{type:String, require:true}, //id排序 ，一次查询
 
+        'from':{type:String, require:true},  //从那里发出来
+        'to':{type:String, require:true},  //发给谁
+
+        'read':{type:Boolean, default:false}, //已读数据，只对 to有效
+
+        'content':{type:String, require:true, default:''},  //内容
+        'createTime':{type:Number, default:new Date().getTime()}  //时间戳
     }
 }
 

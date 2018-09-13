@@ -6,7 +6,7 @@ import { Switch, Route } from 'react-router-dom'
 import NavListBar from './navBar'
 import Boss from './userlist/boss'
 import Genius from './userlist/genius'
-import Msg from './msg'
+import Msg from './chat'
 import User from './my/user'
 
 import niur from '../../assert/image/svg/nr.svg'

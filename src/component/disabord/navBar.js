@@ -1,8 +1,12 @@
 import React,{Component} from 'react';
 import { TabBar } from 'antd-mobile';
-import {withRouter} from 'react-router-dom'
+import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux'
 
 @withRouter
+@connect(
+    state=>state.chat
+)
 /**
  * 对应footerbar
  */
@@ -35,11 +39,11 @@ export default class NavListBar extends Component{
                             return (
                                 <TabBar.Item
                                     title={item.label}
-                                    key={item.title}
+                                    key={item.path}
                                     icon={<div style={this.getStyles(item.icon)}/>}
                                     selectedIcon={<div style={this.getStyles(item.selectedIcon)}/>}
                                     selected={pathname === item.path}
-                                    badge={1}
+                                    badge={item.path == '/msg' ? this.props.unread : 0}
                                     onPress={() => {
                                         this.props.history.push(item.path)
                                     }}

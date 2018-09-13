@@ -4,6 +4,7 @@ const utils = require('utility');
 const Router = express.Router();
 const model = require('./model')
 const User = model.getModel('user');
+const Chat = model.getModel('chat');
 const _filter = {'pwd':0,'__v':0};  //过滤隐藏密码加密
 
 //用户列表
@@ -12,9 +13,38 @@ Router.get('/list',function (req,res) {
     //删除全部数据
     // User.remove({},function (err,doc) {});
 
-    //获取全部数据 type:'boss'
+    //获取全部数据 type:'boss | genius'
     User.find({type},function (err, doc) {
         return res.json({code:0,data:doc});
+    })
+})
+
+//清空用户聊天信息
+// Chat.remove({},function(err,doc){});
+
+//用户聊天信息
+Router.get('/getMsgList',function (req,res) {
+    const userid = req.cookies.userid;
+
+    User.find({},function (err,userDoc) {
+        let users = {};
+        userDoc.forEach(item =>{
+            users[item._id] = {name:item.user, avatar:item.avatar};
+        })
+        // console.log(userDoc)
+
+        // '$or':[{from:userid},{to:userid}]
+        Chat.find({'$or':[{from:userid},{to:userid}]}, function(err, doc){
+            if(doc.length > 0){
+                console.log("从数据库获取到数据");
+                // console.log(doc)
+            }else{
+                console.log("未获取到或数据库数据为空");
+            }
+            if(!err){
+                return res.json({code:0,msgs:doc,users:users})
+            }
+        })
     })
 })
 

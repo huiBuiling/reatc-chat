@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import { Card, WingBlank, WhiteSpace } from 'antd-mobile';
 import { connect } from 'react-redux'
-import { getUserList } from "../../../redux/chat.redux";
+import { getUserList } from "../../../redux/chat.user.redux";
 
 @connect(
     state=>state.chatUser,
@@ -22,14 +22,19 @@ export default class Genius extends Component{
         this.props.getUserList('genius');
     }
 
+    //跳转到对应聊天人（boss）
+    handlerRedict(item){
+        this.props.history.push(`/chat/${item}`)
+    }
+
     render (){
-        const geniusData = this.props.userList ? this.props.userList : this.state.bossData
+        const geniusData = this.props.userList ? this.props.userList : this.state.geniusData
         return (
             <div>
                 <WingBlank size="lg">
                     <WhiteSpace size="lg" />
                     {geniusData.map(item =>{
-                        return (item.avatar ? <Card className="app-card" key={item.user}>
+                        return (item.avatar ? <Card className="app-card" key={item.user} onClick={()=>this.handlerRedict(item._id)}>
                             <Card.Header
                                 title={item.user}
                                 thumb={require(`../../../assert/image/avatar/${item.avatar}.jpg`)}

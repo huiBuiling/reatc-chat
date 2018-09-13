@@ -11,6 +11,7 @@ import AuthRoute from './component/authRoute/authRoute'
 import BossInfo from './container/bossinfo/bossinfo'
 import GeniusInfo from './container/geniusinfo/geniusinfo'
 import Disboard from './component/disabord/disabord'
+import Chat from './component/disabord/chat'
 
 import reducers from './redux/reducers'
 import './util/config'
@@ -31,7 +32,8 @@ ReactDOM.render(
                     <Route path='/geniusinfo' component={GeniusInfo} />
                     <Route path='/login' exact component={Login} />
                     <Route path='/register' component={Register} />
-
+                    <Route path='/chat/:user' component={Chat} />
+                    
                     {/* 不添加Switch ，则所有匹配路由下都会显示 */}
                     {/*Switch中，前面路由都未匹配中，则显示*/}
                     <Route component={Disboard} ></Route>
