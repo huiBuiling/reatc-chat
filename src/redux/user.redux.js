@@ -1,5 +1,5 @@
 import axios from 'axios'
-import getRedirectPath from '../util/util'
+import {getRedirectPath} from '../util/util'
 
 // const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
 // const LOGIN_SUCCESS = 'LOGIN_SUCCESS';

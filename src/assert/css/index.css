@@ -372,9 +372,9 @@ body
   padding: 20px 0;
 }
 
-.app-chat .app-chat-con .app-chat-con-list{
+.app-chat .app-chat-con .app-chat-con-list {
     text-align: left;
-    margin: 0 10px;
+    margin: 0 10px 10px 10px;
 }
 
 .app-chat .app-chat-con .app-chat-con-list img{
@@ -397,9 +397,10 @@ body
 {
     position: relative;
     display: inline-block;
+    width: calc(100% - 70px);
+    vertical-align: top;
 
-    width: auto;
-    margin: 10px;
+    margin: 0 10px;
 
     text-align: left;
 }
@@ -422,7 +423,7 @@ body
     line-height: 30px;
 
     display: inline-block;
-
+    text-align: left;
     margin-right: 5px;
     margin-left: 5px;
     padding: 5px 10px;

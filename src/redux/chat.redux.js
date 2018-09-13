@@ -20,14 +20,16 @@ export function chat(state=initState, action){
             return {
                 ...state,
                 chatMsg:action.payload.msgs,
-                unread:action.payload.msgs.filter(item => !item.read).length,
+                //过滤消息： 当前发送目标是当前登录人
+                unread:action.payload.msgs.filter(item => !item.read && item.to == action.payload.userid).length,
                 users:action.payload.users
             }
         case MSG_RECV:  
             return {
                 ...state,
-                chatMsg:[...state.chatMsg,action.payload],
-                unread:state.unread + 1
+                chatMsg:[...state.chatMsg,action.payload.msg],
+                //判断是否是当前登录人，不是则加1
+                unread:action.payload.msg.from == action.payload.userid ? state.unread : state.unread + 1
             }
         case MSG_READ:  
             return {
@@ -39,38 +41,41 @@ export function chat(state=initState, action){
 }
 
 //action
-export function msgList(msgs,users){
-    return {type:MSG_LIST, payload:{msgs,users}}
+export function msgList(msgs,users,userid){
+    return {type:MSG_LIST, payload:{msgs,users,userid}}
 }
 
-export function msgRecv(msg){
-    return {type:MSG_RECV, payload:msg}
+export function msgRecv(msg,userid){
+    return {type:MSG_RECV, payload:{msg,userid}}
 }
 
 //获取用户列表请求
 export function getMsgList() {
-    return dispatch=>{
+    return (dispatch,getState)=>{
         axios.get('/user/getMsgList').then(res=>{
             if(res.status === 200 && res.data.code === 0 ){
-                dispatch(msgList(res.data.msgs, res.data.users));
+                const userid = getState().user._id;
+                // console.log(getState());
+                dispatch(msgList(res.data.msgs, res.data.users,userid));
             }
         })
     }
 }
 
-//发送消息数据
-export function sendMsg({from, to, msg}){
-    return dispatch =>{
-        socket.emit('sendMsg',{from, to, msg});
+//进到应用后监听收到数据
+export function recvMsg(){
+    return (dispatch, getState) =>{
+        socket.on('receiveMsg',function(data){
+            console.log('receiveMsg: ' + data)
+            const userid = getState().user._id;
+            dispatch(msgRecv(data, userid));
+        });
     }
 }
 
-//进到应用后监听数据
-export function recvMsg(data){
+//监听发送消息数据
+export function sendMsg({from, to, msg}){
     return dispatch =>{
-        socket.on('receiveMsg',function(data){
-            console.log('receiveMsg: ' + data)
-            dispatch(msgRecv(data));
-        });
+        socket.emit('sendMsg',{from, to, msg});
     }
 }

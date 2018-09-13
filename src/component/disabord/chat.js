@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import {Icon, InputItem, List, NavBar} from 'antd-mobile';
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
+
 import {getMsgList, recvMsg, sendMsg} from '../../redux/chat.redux'
-import img from '../../assert/image/avatar/boy5.jpg'
-import img2 from '../../assert/image/avatar/girl3.jpg'
+import {getChatId} from "../../util/util";
+
 // import io from 'socket.io-client'
 // const socket = io('ws://localhost:5203');
 /**
@@ -22,16 +23,13 @@ export default class Chat extends Component{
         this.state={
             text:''
         }
-        
     }
 
     componentDidMount(){
        //发起连接
        /*socket.on('receiveMsg',(data)=>{
             //接收的全局消息
-            this.setState({
-                msg:[...this.state.msg,data.text]
-            })
+            this.setState({ msg:[...this.state.msg,data.text] })
         })*/
        //判断是否已有信息
        if(!this.props.chat.chatMsg.length) {
@@ -61,7 +59,10 @@ export default class Chat extends Component{
 
     render (){
         const userid = this.props.match.params.user;
-        const {users, chatMsg} = this.props.chat;
+        let {users, chatMsg} = this.props.chat;
+
+        const chatid = getChatId(userid, this.props.user._id);
+        chatMsg = chatMsg.filter(item =>item.chatid == chatid);
 
         if(!users[userid]){
             return null;

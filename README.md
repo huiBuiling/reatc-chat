@@ -894,7 +894,7 @@ npm install socket.io --save
 npm install socket.io-client --save
 ```
 
-> 聊天
+> 聊天发送消息
 ```
 <Route path='/chat/:user' component={Chat} />
 
@@ -911,24 +911,68 @@ io.on('connection',function(socket){
     })
 })
 
-chat :
-import io from 'socket.io-client'
-let socket = io('ws://localhost:5203');
-socket.on('receiveMsg',(data)=>{//实时消息连接发送
-    this.setState({
-        msg:[...this.state.msg,data.text]
-    })
-})
+chat.js :
+//import io from 'socket.io-client'
+//let socket = io('ws://localhost:5203');
+
+@withRouter
+@connect(
+    state=>state,
+    { getMsgList,sendMsg,recvMsg }
+)
+
+componentDidMount(){
+   //发起连接  接收的全局消息
+   /*socket.on('receiveMsg',(data)=>{
+        this.setState({ msg:[...this.state.msg,data.text] })
+    })*/
+
+   //判断是否已有信息
+   if(!this.props.chat.chatMsg.length) {
+       this.props.getMsgList();
+       this.props.recvMsg();
+   }
+}
+
+//发送消息
+handlerSubmit = ()=>{
+    // socket.emit('sendMsg',{text:this.state.text});
+
+    const from = this.props.user._id;
+    const to = this.props.match.params.user;
+    const msg = this.state.text;
+    this.props.sendMsg({from, to, msg});
+
+    this.setState({ text:'' });
+}
+
+const userid = this.props.match.params.user;
+const {users, chatMsg} = this.props.chat;
+{chatMsg.map((item, index) =>{}
+name: {users[userid].name}
+avatar: require(`../../assert/image/avatar/${users[item.from].avatar}.jpg`)
 
 ---------------------------------------------------
-识别对应人：
-chat.redux:
+chat.redux.js:
 const MSG_LIST = 'MSG_LIST';   //获取聊天列表
 const MSG_RECV = 'MSG_RECV';   //读取信息
 const MSG_READ = 'MSG_READ';   //标识已读
 
-入数据库：
-数据模型：
+case MSG_LIST:
+    return {
+        ...state,
+        chatMsg:action.payload.msgs,
+        unread:action.payload.msgs.filter(item => !item.read).length,
+        users:action.payload.users
+    }
+case MSG_RECV:
+    return {
+        ...state,
+        chatMsg:[...state.chatMsg,action.payload],
+        unread:state.unread + 1
+    }
+
+数据模型|model.js：
 chat:{
     'chatid':{type:String, require:true}, //id排序 ，一次查询
 
@@ -942,7 +986,103 @@ chat:{
 }
 
 bug:
-1. 初次发送消息会显示两次
+1. 初次发送消息会显示多次
 2. 路由可随意切换
 3. 过滤后brage 点击消息页才显示数量
+```
+
+> 聊天消息过滤
+```
+util.js:
+/**
+ * 聊天消息过滤
+ * 根据数据模型 里面的 from and to 过滤出 chatid
+ */
+export function getChatId(userId, targetId){
+    return [userId, targetId].sort().join('_');
+}
+
+chat.js:
+import {getChatId} from "../../util/util";
+let {users, chatMsg} = this.props.chat;
+const chatid = getChatId(userid, this.props.user._id);
+chatMsg = chatMsg.filter(item => item.chatid == chatid);
+
+```
+
+> bug修复
+```
+定位：disabord.js
+
+1. 过滤后brage 点击消息页才显示数量
+未加载获取消息方法
+componentDidMount(){
+    this.props.getMsgList();
+    this.props.recvMsg();
+}
+
+2.初次发送消息会显示多次
+原因：this.props.recvMsg();
+添加判断
+componentDidMount(){
+    if(!this.props.chat.chatMsg.length) {
+        this.props.getMsgList();
+        this.props.recvMsg();
+    }
+}
+
+3.未阅读数量对应到具体聊天人
+chat.redux:
+    已有的信息过滤
+    case MSG_LIST:
+        return {
+            ...state,
+            chatMsg:action.payload.msgs,
+            //过滤消息： 当前发送目标是当前登录人
+            unread:action.payload.msgs.filter(item => !item.read && item.to == action.payload.userid).length,
+            users:action.payload.users
+        }
+
+    export function msgList(msgs,users,userid){
+        return {type:MSG_LIST, payload:{msgs,users,userid}}
+    }
+
+    export function getMsgList() {
+        return (dispatch,getState)=>{
+            axios.get('/user/getMsgList').then(res=>{
+                if(res.status === 200 && res.data.code === 0 ){
+                    //新增userid
+                    const userid = getState().user._id;
+                    dispatch(msgList(res.data.msgs, res.data.users,userid));
+                }
+            })
+        }
+    }
+
+    新发送的信息过滤
+    case MSG_RECV:
+        return {
+            ...state,
+            chatMsg:[...state.chatMsg,action.payload],
+            //判断是否是当前登录人，不是则加1
+            unread:action.payload.msg.from == action.payload.userid ? state.unread : state.unread + 1
+        }
+
+    export function msgList(msgs,users,userid){
+        return {type:MSG_LIST, payload:{msgs,users,userid}}
+    }
+
+    export function getMsgList() {
+        return (dispatch,getState)=>{
+            axios.get('/user/getMsgList').then(res=>{
+                if(res.status === 200 && res.data.code === 0 ){
+                    //新增userid
+                    const userid = getState().user._id;
+                    dispatch(msgList(res.data.msgs, res.data.users,userid));
+                }
+            })
+        }
+    }
+
+
 ```

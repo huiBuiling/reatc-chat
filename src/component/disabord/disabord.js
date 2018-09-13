@@ -17,15 +17,24 @@ import message from '../../assert/image/svg/message.svg'
 import messageI from '../../assert/image/svg/message-o.svg'
 import my from '../../assert/image/svg/my.svg'
 import myI from '../../assert/image/svg/my-o.svg'
+import {getMsgList, recvMsg} from "../../redux/chat.redux";
 
 @connect(
-    state=>state
+    state=>state,
+    { getMsgList,recvMsg }
 )
 export default class Disboard extends Component{
     constructor(props){
         super(props);
         this.state = {
         };
+    }
+
+    componentDidMount(){
+        if(!this.props.chat.chatMsg.length) {
+            this.props.getMsgList();
+            this.props.recvMsg();
+        }
     }
 
     render (){
