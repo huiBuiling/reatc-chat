@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Icon, InputItem, List, NavBar} from 'antd-mobile';
+import {Icon, InputItem, List, NavBar,Grid} from 'antd-mobile';
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 
@@ -21,7 +21,9 @@ export default class Chat extends Component{
         super(props);
         
         this.state={
-            text:''
+            text:'',
+            showEmoj:false,
+            height:'45px'
         }
     }
 
@@ -36,6 +38,8 @@ export default class Chat extends Component{
            this.props.getMsgList();
            this.props.recvMsg();
        }
+
+       this.fixCarousel();
     }
 
     //发送消息
@@ -57,16 +61,41 @@ export default class Chat extends Component{
         this.props.history.goBack();
     }
 
+    fixCarousel = ()=>{
+        //使用宫格轮播显示bug解决
+        setTimeout(function () {
+            window.dispatchEvent(new Event('resize'));
+        },0);
+    }
+
+    //emoj显示开关
+    showEmojs = ()=>{
+        let {showEmoj, height} = this.state;
+        if(showEmoj){
+            height = '45px';
+        }else{
+            height = '127px';
+        }
+        this.setState({showEmoj:!showEmoj,height});
+        this.fixCarousel();
+    }
+
     render (){
         const userid = this.props.match.params.user;
         let {users, chatMsg} = this.props.chat;
 
         const chatid = getChatId(userid, this.props.user._id);
-        chatMsg = chatMsg.filter(item =>item.chatid == chatid);
+        chatMsg = chatMsg.filter(item =>item.chatid === chatid);
 
         if(!users[userid]){
             return null;
         }
+
+        const emoj = '😁 😂 😅 😆 😉 😊 😋 😎 😍 😍 😘 😗 😚 ☺ 😣 😥 😣 😪 😫 😌 😜 😝 😒 😓 😔 😲 😢 😇 😷 😠 😇 👻 💩 👦 👧 👨 👩 👴 👵 👋 💋 ☂️'
+                .split(' ')
+                // .filter(item => item === item)
+                .map(item => ({text:item}));
+
         return (
             <div className="app-chat">
                 <NavBar mode="dark"
@@ -75,7 +104,9 @@ export default class Chat extends Component{
                   rightContent={<Icon key="1" type="ellipsis" />}
                 >{users[userid].name}</NavBar>
 
-                <div className="app-chat-con">
+                {/*style={{height:this.refs.inputs.clientHeight}}*/}
+
+                <div className="app-chat-con" style={{marginBottom:this.state.height}}>
                     {chatMsg.map((item, index) =>{
                         if(item.from === userid){
                             return (
@@ -109,8 +140,25 @@ export default class Chat extends Component{
                         onChange={item=>{
                             this.setState({text:item})
                         }}
-                        extra={<span onClick={this.handlerSubmit}>发送</span>}
+                        extra={
+                            <div style={{lineHeight:'45px'}}>
+                                <span className="app-chat-emoj" onClick={this.showEmojs}>😄</span>
+                                <span onClick={this.handlerSubmit}>发送</span>
+                            </div>}
                     ></InputItem>
+
+                    {this.state.showEmoj ?
+                        <Grid
+                            data={emoj}
+                            activeStyle={false}
+                            columnNum={10}
+                            isCarousel={true}
+                            carouselMaxRow={2}
+                            hasLine={false}
+                            onClick={(el, index)=>{this.setState({
+                                text:this.state.text + el.text
+                            })}}
+                        /> : null}
                 </List>
             </div>
 

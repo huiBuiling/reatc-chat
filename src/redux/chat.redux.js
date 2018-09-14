@@ -21,7 +21,7 @@ export function chat(state=initState, action){
                 ...state,
                 chatMsg:action.payload.msgs,
                 //过滤消息： 当前发送目标是当前登录人
-                unread:action.payload.msgs.filter(item => !item.read && item.to == action.payload.userid).length,
+                unread:action.payload.msgs.filter(item => !item.read && item.to === action.payload.userid).length,
                 users:action.payload.users
             }
         case MSG_RECV:  
@@ -29,7 +29,7 @@ export function chat(state=initState, action){
                 ...state,
                 chatMsg:[...state.chatMsg,action.payload.msg],
                 //判断是否是当前登录人，不是则加1
-                unread:action.payload.msg.from == action.payload.userid ? state.unread : state.unread + 1
+                unread:action.payload.msg.from === action.payload.userid ? state.unread : state.unread + 1
             }
         case MSG_READ:  
             return {

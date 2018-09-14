@@ -43,7 +43,7 @@ export default class NavListBar extends Component{
                                     icon={<div style={this.getStyles(item.icon)}/>}
                                     selectedIcon={<div style={this.getStyles(item.selectedIcon)}/>}
                                     selected={pathname === item.path}
-                                    badge={item.path == '/msg' ? this.props.unread : 0}
+                                    badge={item.path === '/msg' ? this.props.unread : 0}
                                     onPress={() => {
                                         this.props.history.push(item.path)
                                     }}

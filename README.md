@@ -1086,3 +1086,57 @@ chat.redux:
 
 
 ```
+
+> emoj表情：
+```
+https://emojipedia.org/
+谷歌浏览器的emoji扩展插件（Chromoji）:使其在window版本的谷歌浏览器上正常显示
+
+const emoj = '😁 😂 😅 😆 😉 😊 😋 😎 😍 😍 😘 😗 😚 ☺ 😣 😥 😣 😪 😫 😌 😜 😝 😒 😓 😔 😲 😢 😇 😷 😠 😇 👻 💩 👦 👧 👨 👩 👴 👵 👋 💋 ☂️'
+                .split(' ').filter(item => item == item).map(item => ({text:item}))
+
+//使用宫格轮播显示bug解决
+componentDidMount(){
+    setTimeout(function () {
+       window.dispatchEvent(new Event('resize'));
+    },0)
+}
+
+```
+
+> 新bug
+```
+退出重新登录，获取的数据不清除缓存，显示是之前的
+
+```
+
+> 消息列表
+```
+const currentId = this.props.user._id;
+let { users,chatMsg } = this.props.chat;
+
+let msgGroup = {};
+//将聊天人信息分组
+chatMsg.forEach(item =>{
+    msgGroup[item.chatid] = msgGroup[item.chatid] || [];
+    msgGroup[item.chatid].push(item);
+});
+
+{Object.values(msgGroup).map((item,index) => {
+    let last = this.getLastList(item);
+            let target = last.from === currentId ? last.to : last.from;
+            if(!users[target]){return null;}
+            return (
+                <Item
+                    key = {index}
+                    arrow="horizontal"
+                    thumb={require(`../../../assert/image/avatar/${users[target].avatar}.jpg`)}
+                    multipleLine
+                    onClick={()=>{}}
+                >
+                    {users[target].name}
+                    <Brief>{last.content}</Brief>
+                </Item>
+            )})
+}
+```

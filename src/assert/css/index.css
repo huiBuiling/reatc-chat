@@ -1,20 +1,20 @@
 /* 禁用iPhone中Safari的字号自动调整 */
-html
-{
+html {
     -webkit-text-size-adjust: 100%;
-        -ms-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
     　　font-size: 62.5%;
 }
+
 /* 去除iPhone中默认的input样式 */
 input[type='submit'],
 input[type='reset'],
 input[type='button'],
-input
-{
+input {
     resize: none;
 
     -webkit-appearance: none;
 }
+
 /* 取消链接高亮  */
 body,
 div,
@@ -53,10 +53,10 @@ header,
 hgroup,
 menu,
 nav,
-section
-{
+section {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+
 /* 设置HTML5元素为块 */
 article,
 aside,
@@ -68,19 +68,19 @@ header,
 hgroup,
 menu,
 nav,
-section
-{
+section {
     display: block;
 }
+
 /* 图片自适应 */
-img
-{
-    width: auto\9; /* ie8 */
+img {
+    width: auto \9; /* ie8 */
     max-width: 100%;
     height: auto;
 
-    -ms-interpolation-mode: bicubic;/*为了照顾ie图片缩放失真*/
+    -ms-interpolation-mode: bicubic; /*为了照顾ie图片缩放失真*/
 }
+
 /* 初始化 */
 body,
 div,
@@ -119,28 +119,27 @@ header,
 hgroup,
 menu,
 nav,
-section
-{
+section {
     margin: 0;
     padding: 0;
 
     border: none;
 }
-body
-{
-    font: normal 14px/1.5 Tahoma,'Lucida Grande',Verdana,'Microsoft Yahei',STXihei,hei;
+
+body {
+    font: normal 14px/1.5 Tahoma, 'Lucida Grande', Verdana, 'Microsoft Yahei', STXihei, hei;
 }
+
 em,
-i
-{
+i {
     font-style: normal;
 }
-strong
-{
+
+strong {
     font-weight: normal;
 }
-.clearfix:after
-{
+
+.clearfix:after {
     display: block;
     visibility: hidden;
     clear: both;
@@ -149,83 +148,84 @@ strong
 
     content: '';
 }
-.clearfix
-{
+
+.clearfix {
     zoom: 1;
 }
-a
-{
-    font-family: '宋体',Microsoft YaHei,Tahoma,Arial,sans-serif;
+
+a {
+    font-family: '宋体', Microsoft YaHei, Tahoma, Arial, sans-serif;
 
     text-decoration: none;
 
     color: #969696;
 }
-a:hover
-{
+
+a:hover {
     text-decoration: none;
 
     color: #fff;
 }
+
 ul,
-ol
-{
+ol {
     list-style: none;
 }
+
 h1,
 h2,
 h3,
 h4,
 h5,
-h6
-{
+h6 {
     font-family: Microsoft YaHei;
     font-size: 100%;
 }
-img
-{
+
+img {
     border: none;
 }
 
-body
-{
+body {
     font-family: sans-serif;
 
     margin: 0;
     padding: 0;
 }
 
- @media only screen and (min-width: 320px){
+@media only screen and (min-width: 320px) {
     html {
-      font-size: 62.5% !important;
+        font-size: 62.5% !important;
     }
-  }
-  @media only screen and (min-width: 640px){
+}
+
+@media only screen and (min-width: 640px) {
     html {
-      font-size: 125% !important;
+        font-size: 125% !important;
     }
-  }
-  @media only screen and (min-width: 750px){
+}
+
+@media only screen and (min-width: 750px) {
     html {
-      font-size: 150% !important;
+        font-size: 150% !important;
     }
-  }
-  @media only screen and (min-width: 1242px){
+}
+
+@media only screen and (min-width: 1242px) {
     html {
-      font-size: 187.5% !important;
+        font-size: 187.5% !important;
     }
-  }
+}
 
 /*content*/
-.logo
-{
+.logo {
     margin-top: 50px;
     margin-bottom: 20px;
 
     text-align: center;
 }
-.err-msg
-{
+
+.err-msg {
     line-height: 30px;
 
     margin-bottom: 5px;
@@ -235,13 +235,12 @@ body
     color: red;
 }
 
-.app
-{
+.app {
     background: #F5F5F5;
 }
+
 /*header*/
-.app .app-header
-{
+.app .app-header {
     position: fixed;
     z-index: 1000;
     top: 0;
@@ -251,16 +250,15 @@ body
 }
 
 /*footer*/
-.app .app-footer
-{
+.app .app-footer {
     position: fixed;
     bottom: 0;
     left: 0;
 
     width: 100%;
 }
-.app .app-footer .app-footer-con
-{
+
+.app .app-footer .app-footer-con {
     height: 100%;
 
     text-align: left;
@@ -268,65 +266,63 @@ body
     background: #fafafa;
 }
 
-
-.app .app-footer .am-tab-bar .am-tabs .am-tabs-tab-bar-wrap
-{
+.app .app-footer .am-tab-bar .am-tabs .am-tabs-tab-bar-wrap {
     z-index: 1000;
 
     background: #fff;
 }
-.am-tabs-content-wrap
-{
+
+.am-tabs-content-wrap {
     z-index: 999;
 }
+
 /*CONTENT*/
-.app .app-con
-{
+.app .app-con {
     margin: 45px 0;
 }
+
 /*user list */
-.app .app-con .app-card
-{
+.app .app-con .app-card {
     margin-bottom: 10px;
 }
-.app .app-con .app-card .am-card-header
-{
+
+.app .app-con .app-card .am-card-header {
     padding: 5px 15px;
 }
-.app .app-con .app-card .am-card-header img
-{
+
+.app .app-con .app-card .am-card-header img {
     width: 50px;
     height: 50px;
     margin-right: 8px;
 }
-.app .app-con .app-card .am-card-header-content
-{
+
+.app .app-con .app-card .am-card-header-content {
     font-size: 14px;
 }
-.app .app-con .app-card .am-card-header-extra
-{
+
+.app .app-con .app-card .am-card-header-extra {
     font-size: 15px;
 }
-.app .app-con .app-card .am-card-body
-{
+
+.app .app-con .app-card .am-card-body {
     /*padding: 15px 15px 6px;
   */;
 }
-.app .app-con .app-card .am-card-body h5
-{
+
+.app .app-con .app-card .am-card-body h5 {
     font-size: 16px;
     font-weight: normal;
 
     margin: 0 0 10px 0;
 }
-.app .app-con .app-card .am-card-body span
-{
+
+.app .app-con .app-card .am-card-body span {
     float: right;
 
     color: #0891ff;
 }
-.app .app-con .app-card .am-card-body p
-{
+
+.app .app-con .app-card .am-card-body p {
     font-size: 13px;
     line-height: 20px;
 
@@ -337,39 +333,68 @@ body
 
 /*my center*/
 
-.app .app-con .app-my .am-result .am-result-pic img
-{
+.app .app-con .app-my .am-result .am-result-pic img {
     width: 100%;
     height: 100%;
 }
 
-.app .app-con .app-my .my-list .am-list-body p
-{
+.app .app-con .app-my .my-list .am-list-body p {
     margin: 5px 0;
 }
-.app .app-con .app-my .my-list-out
-{
+
+.app .app-con .app-my .my-list-out {
     margin-top: 30px;
 }
-.app .app-con .app-my .my-list-out .am-list-content
-{
+
+.app .app-con .app-my .my-list-out .am-list-content {
     text-align: center;
 
     color: #0891ff;
 }
 
+/*msg*/
+.app .app-con .app-msg{
+    background: #fff;
+}
+.app .app-con .app-msg .my-list{
+    margin: 0 10px;
+}
+.app .app-con .app-msg .my-list .am-list-item{
+    border-bottom: 1px solid #efefef;
+}
+.app .app-con .app-msg .my-list .am-list-item:last-child{
+    border-bottom: none;
+}
+.app .app-con .app-msg .my-list .am-list-item .am-list-line:after{
+    border-bottom: none;
+}
+.app .app-con .app-msg .my-list .am-list-item:last-child .am-list-line:after{
+    border-bottom: none;
+}
+.app .app-con .app-msg .my-list .am-list-item .am-list-thumb{
+    padding: 10px 0;
+}
+.app .app-con .app-msg .my-list .am-list-item .am-list-thumb img{
+    width: 50px;
+    height: 50px;
+    border:2px solid #f5f5f5;
+    border-radius: 3px;
+}
+
 /*chat*/
-.app-chat .am-navbar{
-      position: fixed;
+.app-chat .am-navbar {
+    position: fixed;
     z-index: 1000;
     top: 0;
     left: 0;
 
     width: 100%;
 }
-.app-chat .app-chat-con{
-  margin: 45px 0;
-  padding: 20px 0;
+
+.app-chat .app-chat-con {
+    margin-top: 45px;
+    margin-bottom: 45px;
+    padding: 10px 0;
 }
 
 .app-chat .app-chat-con .app-chat-con-list {
@@ -377,24 +402,22 @@ body
     margin: 0 10px 10px 10px;
 }
 
-.app-chat .app-chat-con .app-chat-con-list img{
+.app-chat .app-chat-con .app-chat-con-list img {
     width: 50px;
     height: 50px;
     vertical-align: middle;
 }
 
-.app-chat .app-chat-con .app-chat-con-list2{
+.app-chat .app-chat-con .app-chat-con-list2 {
     text-align: right;
 }
 
-
-.app-chat .app-chat-con .app-chat-con-list>span{
-  color: red;
+.app-chat .app-chat-con .app-chat-con-list > span {
+    color: red;
 }
 
 /*left*/
-.app-chat .app-chat-con .app-chat-msg
-{
+.app-chat .app-chat-con .app-chat-msg {
     position: relative;
     display: inline-block;
     width: calc(100% - 70px);
@@ -404,8 +427,8 @@ body
 
     text-align: left;
 }
-.app-chat .app-chat-con .app-chat-msg:after
-{
+
+.app-chat .app-chat-con .app-chat-msg:after {
     position: absolute;
     top: 14px;
     left: -5px;
@@ -418,8 +441,8 @@ body
     border: 1px solid #ddd;
     border-width: 0 0 1px 1px;
 }
-.app-chat .app-chat-con .app-chat-msg span.msg
-{
+
+.app-chat .app-chat-con .app-chat-msg span.msg {
     line-height: 30px;
 
     display: inline-block;
@@ -432,34 +455,58 @@ body
     background: #fff;
     border: 1px solid #ddd;
 }
-
+.app-chat .app-chat-con .app-chat-msg span.msg .chromoji{
+    font-size: 20px;
+    vertical-align: inherit;
+}
 /*right*/
-.app-chat .app-chat-con .app-chat-con-list2 .app-chat-msg
-{
+.app-chat .app-chat-con .app-chat-con-list2 .app-chat-msg {
     text-align: right;
 
     color: #fff;
 }
-.app-chat .app-chat-con .app-chat-con-list2 .app-chat-msg:after
-{
+
+.app-chat .app-chat-con .app-chat-con-list2 .app-chat-msg:after {
     left: calc(100% - 16px);
 
     border: none;
     background: #0891ff;
 }
-.app-chat .app-chat-con .app-chat-con-list2 .app-chat-msg span.msg
-{
+
+.app-chat .app-chat-con .app-chat-con-list2 .app-chat-msg span.msg {
     background: #0891ff;
 }
+
 /*input*/
-.app-chat .app-chat-input
-{
+.app-chat .app-chat-input {
     position: fixed;
     bottom: 0;
 
     width: 100%;
 }
-.app-chat .app-chat-input .am-list-item .am-input-control input
-{
+
+.app-chat .app-chat-input .am-list-item .am-input-control input {
     font-size: 1.5rem;
+}
+
+/*emoj*/
+img.chromoji {
+    font-size: 20px !important;
+    vertical-align: inherit;
+}
+.app-chat .app-chat-input .am-list-item .am-input-extra {
+    min-height: 40px;
+}
+
+.app-chat .app-chat-emoj {
+    margin-right: 10px;
+}
+
+.app-chat .am-grid.am-grid-square .am-grid-item .am-grid-item-inner-content .am-grid-icon {
+    margin-top: 0 !important;
+}
+
+.app-chat .am-grid .am-flexbox .am-flexbox-item .am-grid-item-content .am-grid-item-inner-content .am-grid-text {
+    font-size: 20px !important;
+    margin-top: 0 !important;
 }
