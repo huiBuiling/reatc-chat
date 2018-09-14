@@ -3,7 +3,7 @@ import {Icon, InputItem, List, NavBar,Grid} from 'antd-mobile';
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 
-import {getMsgList, recvMsg, sendMsg} from '../../redux/chat.redux'
+import {getMsgList, recvMsg, sendMsg,readMsg} from '../../redux/chat.redux'
 import {getChatId} from "../../util/util";
 
 // import io from 'socket.io-client'
@@ -14,7 +14,7 @@ import {getChatId} from "../../util/util";
 @withRouter
 @connect(
     state=>state,
-    { getMsgList,sendMsg,recvMsg }
+    { getMsgList,sendMsg,recvMsg,readMsg }
 )
 export default class Chat extends Component{
     constructor(props){
@@ -39,7 +39,11 @@ export default class Chat extends Component{
            this.props.recvMsg();
        }
 
-       this.fixCarousel();
+        this.fixCarousel();
+
+       //设置已读
+       const to = this.props.match.params.user;
+       this.props.readMsg(to);
     }
 
     //发送消息

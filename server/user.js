@@ -33,7 +33,6 @@ Router.get('/getMsgList',function (req,res) {
         })
         // console.log(userDoc)
 
-        // '$or':[{from:userid},{to:userid}]
         Chat.find({'$or':[{from:userid},{to:userid}]}, function(err, doc){
             if(doc.length > 0){
                 console.log("从数据库获取到数据");
@@ -45,6 +44,20 @@ Router.get('/getMsgList',function (req,res) {
                 return res.json({code:0,msgs:doc,users:users})
             }
         })
+    })
+})
+
+//设置已读
+Router.post('/readMsgList',function (req,res) {
+    const userid = req.cookies.userid;
+    const {from} = req.body;
+
+    Chat.update({from,to:userid},{'$set':{read:true}},{'multi':true},function(err, doc){
+        console.log(doc)
+        if(!err){
+            return res.json({code:0,num:doc.nModified})
+        }
+        return res.json({code:1,msg:'修改失败'})
     })
 })
 

@@ -34,6 +34,11 @@ export function chat(state=initState, action){
         case MSG_READ:  
             return {
                 ...state,
+                chatMsg:state.chatMsg.map(item =>{
+                        item.read = true;
+                        return item;
+                    }),
+                unread:state.unread - action.payload.num
             }
         default:
             return state
@@ -47,6 +52,10 @@ export function msgList(msgs,users,userid){
 
 export function msgRecv(msg,userid){
     return {type:MSG_RECV, payload:{msg,userid}}
+}
+
+export function msgRead(from,userid,num){
+    return {type:MSG_READ, payload:{from,userid,num}}
 }
 
 //获取用户列表请求
@@ -70,6 +79,18 @@ export function recvMsg(){
             const userid = getState().user._id;
             dispatch(msgRecv(data, userid));
         });
+    }
+}
+
+//已读数据
+export function readMsg(from){
+    return (dispatch, getState) =>{
+        axios.post('/user/readMsgList',{from}).then(res=>{
+            if(res.status === 200 && res.data.code === 0 ){
+                const userid = getState().user._id;
+                dispatch(msgRead({userid,from,num: res.data.num}));
+            }
+        })
     }
 }
 

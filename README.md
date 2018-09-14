@@ -1151,3 +1151,58 @@ componentDidMount(){
         )})
     }
 ```
+
+> 已读信息过滤
+```
+chat:
+    componentDidMount(){
+       //设置已读
+       const to = this.props.match.params.user;
+       this.props.readMsg(to);
+    }
+
+chat.redux:
+    case MSG_READ:
+        return {
+            ...state,
+            chatMsg:state.chatMsg.map(item =>{
+                    item.read = true;
+                    return item;
+                }),
+            unread:state.unread - action.payload.num
+        }
+
+    export function msgRead(from,userid,num){
+        return {type:MSG_READ, payload:{from,userid,num}}
+    }
+
+    //已读数据
+    export function readMsg(from){
+        return (dispatch, getState) =>{
+            axios.post('/user/readMsgList',{from}).then(res=>{
+                if(res.status === 200 && res.data.code === 0 ){
+                    const userid = getState().user._id;
+                    dispatch(msgRead({userid,from,num: res.data.num}));
+                }
+            })
+        }
+    }
+
+user:
+    //设置已读
+    Router.post('/readMsgList',function (req,res) {
+        const userid = req.cookies.userid;
+        const {from} = req.body;
+
+        Chat.update({from,to:userid},{'$set':{read:true}},{'multi':true},function(err, doc){
+            console.log(doc)
+            if(!err){
+                return res.json({code:0,num:doc.nModified})
+            }
+            return res.json({code:1,msg:'修改失败'})
+        })
+    })
+
+bug:
+新点进去才会监听已读，已在聊天界面，已读消息状态还在
+```
