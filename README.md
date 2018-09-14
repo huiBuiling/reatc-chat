@@ -1112,31 +1112,42 @@ componentDidMount(){
 
 > 消息列表
 ```
-const currentId = this.props.user._id;
-let { users,chatMsg } = this.props.chat;
+    const currentId = this.props.user._id;
+    let { users,chatMsg } = this.props.chat;
 
-let msgGroup = {};
-//将聊天人信息分组
-chatMsg.forEach(item =>{
-    msgGroup[item.chatid] = msgGroup[item.chatid] || [];
-    msgGroup[item.chatid].push(item);
-});
+    let msgGroup = {};
+    //将聊天人信息分组
+    chatMsg.forEach(item =>{
+        msgGroup[item.chatid] = msgGroup[item.chatid] || [];
+        msgGroup[item.chatid].push(item);
+    });
 
-{Object.values(msgGroup).map((item,index) => {
-    let last = this.getLastList(item);
-            let target = last.from === currentId ? last.to : last.from;
-            if(!users[target]){return null;}
-            return (
-                <Item
-                    key = {index}
-                    arrow="horizontal"
-                    thumb={require(`../../../assert/image/avatar/${users[target].avatar}.jpg`)}
-                    multipleLine
-                    onClick={()=>{}}
-                >
-                    {users[target].name}
-                    <Brief>{last.content}</Brief>
-                </Item>
-            )})
-}
+    //转为数组并显示排序 createTime
+    const chatList = Object.values(msgGroup).sort((a,b)=>{
+        const a_last = this.getLastList(a).createTime;
+        const b_last = this.getLastList(b).createTime;
+        return b_last - a_last;
+    });
+
+
+    {chatList.map((item,index) => {
+        let last = this.getLastList(item);
+        let target = last.from === currentId ? last.to : last.from;
+        let unread = item.filter(itemR => !itemR.read && itemR.to == currentId);
+        if(!users[target]){return null;}
+
+        return (
+            <Item
+                key = {index}
+                arrow="horizontal"
+                thumb={require(`../../../assert/image/avatar/${users[target].avatar}.jpg`)}
+                multipleLine
+                onClick={()=>this.handlerRedict(target)}
+                extra={<Badge text={unread.length} overflowCount={10} />}
+            >
+                {users[target].name}
+                <Brief>{last.content}</Brief>
+            </Item>
+        )})
+    }
 ```

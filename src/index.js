@@ -30,7 +30,7 @@ ReactDOM.render(
                 <Switch>  {/*其中之一符合即渲染，不在执行其下面的*/}
                     <Route path='/bossinfo' component={BossInfo} />
                     <Route path='/geniusinfo' component={GeniusInfo} />
-                    <Route path='/login' exact component={Login} />
+                    <Route path='/login' component={Login} />
                     <Route path='/register' component={Register} />
                     <Route path='/chat/:user' component={Chat} />
                     
