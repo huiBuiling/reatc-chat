@@ -256,6 +256,7 @@ body {
     left: 0;
 
     width: 100%;
+    z-index: 2;
 }
 
 .app .app-footer .app-footer-con {

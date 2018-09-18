@@ -35,7 +35,7 @@ Router.get('/getMsgList',function (req,res) {
 
         Chat.find({'$or':[{from:userid},{to:userid}]}, function(err, doc){
             if(doc.length > 0){
-                console.log("从数据库获取到数据");
+                // console.log("从数据库获取到数据");
                 // console.log(doc)
             }else{
                 console.log("未获取到或数据库数据为空");

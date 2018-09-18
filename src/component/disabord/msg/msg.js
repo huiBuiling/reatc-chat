@@ -51,7 +51,7 @@ export default class Msg extends Component{
                     {chatList.map((item,index) => {
                         let last = this.getLastList(item);
                         let target = last.from === currentId ? last.to : last.from;
-                        let unread = item.filter(itemR => !itemR.read && itemR.to == currentId);
+                        let unread = item.filter(itemR => !itemR.read && itemR.to == currentId).length;
                         if(!users[target]){return null;}
 
                         return (
@@ -61,7 +61,7 @@ export default class Msg extends Component{
                                 thumb={require(`../../../assert/image/avatar/${users[target].avatar}.jpg`)}
                                 multipleLine
                                 onClick={()=>this.handlerRedict(target)}
-                                extra={<Badge text={unread.length} overflowCount={10} />}
+                                extra={<Badge text={unread} overflowCount={10} />}
                             >
                                 {users[target].name}
                                 <Brief>{last.content}</Brief>

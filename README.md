@@ -1165,10 +1165,11 @@ chat.redux:
     case MSG_READ:
         return {
             ...state,
-            chatMsg:state.chatMsg.map(item =>{
+            /*chatMsg:state.chatMsg.map(item =>{
                     item.read = true;
                     return item;
-                }),
+                }),*/
+            chatMsg:state.chatMsg.map(item=>{ return {...item, read :true} }),
             unread:state.unread - action.payload.num
         }
 
@@ -1205,4 +1206,20 @@ user:
 
 bug:
 新点进去才会监听已读，已在聊天界面，已读消息状态还在
+
+方法1. 每次发通知告诉后端
+方法2. 退出时就设置全部已读，根据路由
+chat :
+    //退出时移除事件
+    componentWillUnmount(){
+        //设置已读
+        const to = this.props.match.params.user;
+        this.props.readMsg(to);
+    }
+
+    新bug:
+    退出当前聊天信息界面后，与其他所有人的未读消息都变成已读了（消息列表没有未读数据显示）
+    chat.redux:修改为--> ({...item, read : action.payload.from === item.from ? true : item.read})
+
+    退出登录，当天的消息列表显示的还是之前的聊天人的列表，刷新后正常
 ```

@@ -40,10 +40,13 @@ export default class Chat extends Component{
        }
 
         this.fixCarousel();
+    }
 
-       //设置已读
-       const to = this.props.match.params.user;
-       this.props.readMsg(to);
+    //退出时移除事件
+    componentWillUnmount(){
+        //设置已读
+        const to = this.props.match.params.user;
+        this.props.readMsg(to); //当前用户
     }
 
     //发送消息

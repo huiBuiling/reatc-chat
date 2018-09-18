@@ -29,16 +29,21 @@ export function chat(state=initState, action){
                 ...state,
                 chatMsg:[...state.chatMsg,action.payload.msg],
                 //判断是否是当前登录人，不是则加1
-                unread:action.payload.msg.from === action.payload.userid ? state.unread : state.unread + 1
+                unread:action.payload.msg.to === action.payload.userid ? state.unread + 1 : state.unread
             }
-        case MSG_READ:  
+        case MSG_READ:
+            const {from , num} = action.payload;
+            /*let chatMsgs = state.chatMsg;
+            chatMsgs.map(item =>{
+                if(item.from == from){
+                    item.read = true;
+                }
+            })
+            console.log(chatMsgs)*/
             return {
                 ...state,
-                chatMsg:state.chatMsg.map(item =>{
-                        item.read = true;
-                        return item;
-                    }),
-                unread:state.unread - action.payload.num
+                chatMsg:state.chatMsg.map(item=>({...item, read : from === item.from ? true : item.read})),
+                unread:state.unread - num
             }
         default:
             return state
@@ -55,6 +60,8 @@ export function msgRecv(msg,userid){
 }
 
 export function msgRead(from,userid,num){
+    console.log('from : ' + from);
+    console.log('userid : ' + userid);
     return {type:MSG_READ, payload:{from,userid,num}}
 }
 
@@ -88,7 +95,7 @@ export function readMsg(from){
         axios.post('/user/readMsgList',{from}).then(res=>{
             if(res.status === 200 && res.data.code === 0 ){
                 const userid = getState().user._id;
-                dispatch(msgRead({userid,from,num: res.data.num}));
+                dispatch(msgRead(from,userid,res.data.num));
             }
         })
     }
