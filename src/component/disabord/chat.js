@@ -162,9 +162,11 @@ export default class Chat extends Component{
                             isCarousel={true}
                             carouselMaxRow={2}
                             hasLine={false}
-                            onClick={(el, index)=>{this.setState({
-                                text:this.state.text + el.text
-                            })}}
+                            onClick={(el, index)=>{
+                                this.setState({
+                                    text: this.state.text + el.text
+                                })
+                            }}
                         /> : null}
                 </List>
             </div>

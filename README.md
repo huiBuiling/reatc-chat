@@ -1104,12 +1104,6 @@ componentDidMount(){
 
 ```
 
-> 新bug
-```
-退出重新登录，获取的数据不清除缓存，显示是之前的
-
-```
-
 > 消息列表
 ```
     const currentId = this.props.user._id;
@@ -1220,6 +1214,4 @@ chat :
     新bug:
     退出当前聊天信息界面后，与其他所有人的未读消息都变成已读了（消息列表没有未读数据显示）
     chat.redux:修改为--> ({...item, read : action.payload.from === item.from ? true : item.read})
-
-    退出登录，当天的消息列表显示的还是之前的聊天人的列表，刷新后正常
 ```
