@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # reatc-chat 招聘模拟学习
 
 > 创建项目：
@@ -1215,3 +1216,7 @@ chat :
     退出当前聊天信息界面后，与其他所有人的未读消息都变成已读了（消息列表没有未读数据显示）
     chat.redux:修改为--> ({...item, read : action.payload.from === item.from ? true : item.read})
 ```
+=======
+# reatc-chat
+antd + react  电商项目学习
+>>>>>>> 953c62e5d95aad83cc107c0fb7e5c9f75f77b26d
