@@ -1,7 +1,7 @@
 # reatc-chat 招聘模拟学习
 
 效果图：
-![image](https://github.com/huiBuiling/recruitment/tree/master/result_img/boss-list.png)
+![image](https://github.com/huiBuiling/recruitment/blob/master/result_img/boss-list.png)
 
 启动：
     mongo :mongod --dbpath D:\MongoDB\data\db
