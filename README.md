@@ -1,5 +1,14 @@
 # reatc-chat 招聘模拟学习
 
+效果图：
+![image](https://github.com/huiBuiling/recruitment/tree/master/result_img/boss-list.png)
+
+启动：
+    mongo :mongod --dbpath D:\MongoDB\data\db
+    nodemon server/server.js
+    npm start
+
+
 > 创建项目：
 ```
 npm install -g create-react-app
