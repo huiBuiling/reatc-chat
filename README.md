@@ -13,5 +13,10 @@
     2. nodemon server/server.js
     3. npm start
 
+> 流程：
+    登录：
+       登录：
+            是：列表页
+            否：登录页
 > 存在问题：
     首次发送消息会显示两次
