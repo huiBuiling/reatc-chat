@@ -1,4 +1,4 @@
-# reatc-chat 招聘模拟学习
+# reatc-chat 简易招聘
 
 > 效果图：
 
